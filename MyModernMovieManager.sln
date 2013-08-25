@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{08AFAFC1-532E-4AFA-AB35-504D73EA6BCB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieManager.Test", "Test\MovieManager.Test.csproj", "{08AFAFC1-532E-4AFA-AB35-504D73EA6BCB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

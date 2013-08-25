@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息通过以下
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("MovieManger.Test")]
+[assembly: AssemblyTitle("Fish.MovieManager.Test")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MovieManger.Test")]
+[assembly: AssemblyProduct("Fish.MovieManager.Test")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("01c158c1-9f9d-4137-b720-167653f82386")]
+[assembly: Guid("18532f7f-cb60-4d7a-a0fb-56460d1d836d")]
 
 // 程序集的版本信息由下面四个值组成:
 //

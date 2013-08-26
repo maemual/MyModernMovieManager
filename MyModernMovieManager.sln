@@ -5,6 +5,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{81BD8C5B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fish.MovieManager.Test", "Fish.MovieManager.Test\Fish.MovieManager.Test.csproj", "{082C0119-49EA-4D92-AC26-DE560ED9C6CC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Model", "Model", "{2F2D0ECE-A40B-4149-9921-8951184580D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fish.MovieManager.DoubanMovieInfo", "Model\Fish.MovieManager.DoubanMovieInfo\Fish.MovieManager.DoubanMovieInfo.csproj", "{94851E53-7CB0-47E1-98F2-920C0279F1BD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,11 +19,16 @@ Global
 		{082C0119-49EA-4D92-AC26-DE560ED9C6CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{082C0119-49EA-4D92-AC26-DE560ED9C6CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{082C0119-49EA-4D92-AC26-DE560ED9C6CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94851E53-7CB0-47E1-98F2-920C0279F1BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94851E53-7CB0-47E1-98F2-920C0279F1BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94851E53-7CB0-47E1-98F2-920C0279F1BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94851E53-7CB0-47E1-98F2-920C0279F1BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{082C0119-49EA-4D92-AC26-DE560ED9C6CC} = {81BD8C5B-08B0-4176-AC29-7D1CF4C7E336}
+		{94851E53-7CB0-47E1-98F2-920C0279F1BD} = {2F2D0ECE-A40B-4149-9921-8951184580D9}
 	EndGlobalSection
 EndGlobal

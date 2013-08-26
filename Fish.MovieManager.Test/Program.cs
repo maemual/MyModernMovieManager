@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Fish.MovieManager.DoubanMovieInfo.Storage;
+using Fish.MovieManager.DoubanActorInfo.Storage;
 using NHibernate.Linq;
 
 namespace Fish.MovieManager.Test
@@ -14,20 +14,13 @@ namespace Fish.MovieManager.Test
         {
             using (var session = StorageManager.Instance.OpenSession())
             {
-                var tmp = new DoubanMovieInfo.Storage.DoubanMovieInfo();
-                tmp.aka = "aka";
-                tmp.countries = "countries";
-                tmp.directors = 1;
-                tmp.doubanId = 2;
-                tmp.doubanSite = "doubanSite";
-                tmp.image = "image";
-                tmp.originalTitle = "originalTitle";
-                tmp.rating = (double)3.4;
-                tmp.ratingsCount = 3;
-                tmp.summary = "summary";
-                tmp.title = "title";
-                tmp.year = 4;
-            
+                var tmp = new Fish.MovieManager.DoubanActorInfo.Storage.DoubanActorInfo();
+                tmp.avatars = "avatars";
+                tmp.bornPlace = "bornPlace";
+                tmp.gender = 'f';
+                tmp.id = 123332;
+                tmp.name = "name";
+                tmp.nameEn = "nameEn";
                 
                 try
                 {

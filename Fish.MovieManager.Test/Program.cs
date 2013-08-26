@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Fish.MovieManager.DoubanActorInfo.Storage;
+using Fish.MovieManager.VideoFileInfo.Storage;
 using NHibernate.Linq;
 
 namespace Fish.MovieManager.Test
@@ -14,13 +14,22 @@ namespace Fish.MovieManager.Test
         {
             using (var session = StorageManager.Instance.OpenSession())
             {
-                var tmp = new Fish.MovieManager.DoubanActorInfo.Storage.DoubanActorInfo();
-                tmp.avatars = "avatars";
-                tmp.bornPlace = "bornPlace";
-                tmp.gender = 'f';
-                tmp.id = 123332;
-                tmp.name = "name";
-                tmp.nameEn = "nameEn";
+                var tmp = new Fish.MovieManager.VideoFileInfo.Storage.VideoFileInfo();
+                tmp.audioBitRate = 1;
+                tmp.audioFormat = "audio";
+                tmp.bitRate = 2;
+                tmp.doubanId = 3;
+                tmp.duration = "duration";
+                tmp.extension = "extension";
+                tmp.frameRate = 4;
+                tmp.height = 5;
+                tmp.md5 = "md5";
+                tmp.path = "path";
+                tmp.totalFrames = 6;
+                tmp.userRating = 7;
+                tmp.videoBitRate = 8;
+                tmp.videoFormat = "video";
+                tmp.width = 9;
                 
                 try
                 {

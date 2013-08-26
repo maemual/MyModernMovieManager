@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fish.MovieManager.Movie2Tag
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fish.MovieManager.GetMd5", "Tools\Fish.MovieManager.GetMd5\Fish.MovieManager.GetMd5.csproj", "{0A0577D0-F66D-48AC-8E42-0B0022184D9B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fish.MovieManager.DoubanAPI", "Model\Fish.MovieManager.DoubanAPI\Fish.MovieManager.DoubanAPI.csproj", "{F4302AEE-3F94-472A-8FE0-CAC92168FCBC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{0A0577D0-F66D-48AC-8E42-0B0022184D9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A0577D0-F66D-48AC-8E42-0B0022184D9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A0577D0-F66D-48AC-8E42-0B0022184D9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4302AEE-3F94-472A-8FE0-CAC92168FCBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4302AEE-3F94-472A-8FE0-CAC92168FCBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4302AEE-3F94-472A-8FE0-CAC92168FCBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4302AEE-3F94-472A-8FE0-CAC92168FCBC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,5 +71,6 @@ Global
 		{48653991-5148-48A5-8FE6-9BD8375242AD} = {2F2D0ECE-A40B-4149-9921-8951184580D9}
 		{B23FB277-4F2D-4588-9AD7-7E478CEA3CF7} = {2F2D0ECE-A40B-4149-9921-8951184580D9}
 		{3F0D6D44-AF99-4C90-AF2F-DC9996055EB0} = {2F2D0ECE-A40B-4149-9921-8951184580D9}
+		{F4302AEE-3F94-472A-8FE0-CAC92168FCBC} = {2F2D0ECE-A40B-4149-9921-8951184580D9}
 	EndGlobalSection
 EndGlobal

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Fish.MovieManager.VideoFileInfo.Storage;
+using Fish.MovieManager.Movie2Actor.Storage;
 using NHibernate.Linq;
 
 namespace Fish.MovieManager.Test
@@ -14,22 +14,9 @@ namespace Fish.MovieManager.Test
         {
             using (var session = StorageManager.Instance.OpenSession())
             {
-                var tmp = new Fish.MovieManager.VideoFileInfo.Storage.VideoFileInfo();
-                tmp.audioBitRate = 1;
-                tmp.audioFormat = "audio";
-                tmp.bitRate = 2;
-                tmp.doubanId = 3;
-                tmp.duration = "duration";
-                tmp.extension = "extension";
-                tmp.frameRate = 4;
-                tmp.height = 5;
-                tmp.md5 = "md5";
-                tmp.path = "path";
-                tmp.totalFrames = 6;
-                tmp.userRating = 7;
-                tmp.videoBitRate = 8;
-                tmp.videoFormat = "video";
-                tmp.width = 9;
+                //var tmp = new Fish.MovieManager.Movie2Actor.Storage.Movie2Actor();
+                //tmp.id = 1;
+                //tmp.doubanId = 4;
                 
                 try
                 {

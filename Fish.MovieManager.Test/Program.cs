@@ -12,25 +12,27 @@ namespace Fish.MovieManager.Test
     {
         static void Main(string[] args)
         {
-            using (var session = StorageManager.Instance.OpenSession())
-            {
-                //var tmp = new Fish.MovieManager.Movie2Actor.Storage.Movie2Actor();
-                //tmp.id = 1;
-                //tmp.doubanId = 4;
+            //var tmp = Fish.MovieManager.GetMd5.GetMd5.Instance;
+            //Console.WriteLine(tmp.Get("D:\\Pictures\\z01.png"));
+            //using (var session = StorageManager.Instance.OpenSession())
+            //{
+            //    //var tmp = new Fish.MovieManager.Movie2Actor.Storage.Movie2Actor();
+            //    //tmp.id = 1;
+            //    //tmp.doubanId = 4;
                 
-                try
-                {
-                    session.BeginTransaction();
+            //    //try
+            //    //{
+            //    //    session.BeginTransaction();
 
-                    session.Save(tmp);
-                    session.Transaction.Commit();
-                }
-                catch (Exception ex)
-                {
-                    session.Transaction.Rollback();
-                    throw new Exception("失败", ex);
-                }
-            }
+            //    //    session.Save(tmp);
+            //    //    session.Transaction.Commit();
+            //    //}
+            //    //catch (Exception ex)
+            //    //{
+            //    //    session.Transaction.Rollback();
+            //    //    throw new Exception("失败", ex);
+            //    //}
+            //}
         }
     }
 }

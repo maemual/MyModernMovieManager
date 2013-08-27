@@ -14,7 +14,8 @@ namespace Fish.MovieManager.Test
     {
         static void Main(string[] args)
         {
-           
+            Console.WriteLine(System.AppDomain.CurrentDomain.BaseDirectory);
+            Console.WriteLine(Fish.MovieManager.GetFile.Class1.Instance.GetFileNameFromUrl("http://img3.douban.com/view/photo/raw/public/p2104948746.jpg"));
             //var tmp = Fish.MovieManager.DoubanAPI.Class.Instance;
             //tmp.GetMovieInfo("杀死比尔");
             //var tmp = Fish.MovieManager.GetMd5.GetMd5.Instance;

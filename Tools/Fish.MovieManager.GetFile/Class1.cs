@@ -18,5 +18,16 @@ namespace Fish.MovieManager.GetFile
             WebClient webClient = new WebClient();
             webClient.DownloadFile(url, path);
         }
+
+        public string GetFileNameFromUrl(string url)
+        {
+            int pos;
+            for (pos = url.Length - 1; pos >= 0; pos--)
+            {
+                if (url[pos] == '/')
+                    return url.Substring(pos + 1);
+            }
+            return null;
+        }
     }
 }

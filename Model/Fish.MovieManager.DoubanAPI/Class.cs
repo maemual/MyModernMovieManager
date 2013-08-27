@@ -47,7 +47,6 @@ namespace Fish.MovieManager.DoubanAPI
             {
                 movie.originalTitle = (string)json["original_title"];
             }
-            //TODO: aka
             if (json.GetValue("aka") != null)
             {
                 List<string> lst = new List<string>();
@@ -115,6 +114,46 @@ namespace Fish.MovieManager.DoubanAPI
                 movie.summary = (string)json["summary"];
             }
             return movie;
+        }
+        /// <summary>
+        /// 根据影人ID号来从豆瓣抓取数据
+        /// </summary>
+        /// <param name="id">影人ID号</param>
+        /// <returns>返回影人的DoubanActorInfo类型</returns>
+        public DoubanActorInfo.Storage.DoubanActorInfo GetActorInfo(int id)
+        {
+            var actor = new DoubanActorInfo.Storage.DoubanActorInfo();
+            string url = string.Format("https://api.douban.com/v2/movie/celebrity/{0}", id);
+            var json = JObject.Parse(GetJson(url));
+
+            actor.id = int.Parse((string)json["id"]);
+            if (json.GetValue("name") != null)
+            {
+                actor.name = (string)json["name"];
+            }
+            if (json.GetValue("nameEn") != null)
+            {
+                actor.nameEn = (string)json["nameEn"];
+            }
+            if (json.GetValue("gender") != null)
+            {
+                actor.gender = (string)json["gender"];
+            }
+            if (json.GetValue("bornPlace") != null)
+            {
+                actor.bornPlace = (string)json["bornPlace"];
+            }
+            if (json.GetValue("avatars") != null)
+            {
+                var getFile = Fish.MovieManager.GetFile.Class1.Instance;
+                string image_url = (string)json["avatars"]["medium"];
+                string image_name = GetFile.Class1.Instance.GetFileNameFromUrl(image_url);
+                string path = String.Format("{0}\\avatars\\{1}", System.AppDomain.CurrentDomain.BaseDirectory, image_name);
+                actor.avatars = path;
+
+                Fish.MovieManager.GetFile.Class1.Instance.GetFileFromWeb(image_url, image_url);
+            }
+            return actor;
         }
         /// <summary>
         /// 根据上层构造的豆瓣API的URL，来获取豆瓣响应的JSON字符串

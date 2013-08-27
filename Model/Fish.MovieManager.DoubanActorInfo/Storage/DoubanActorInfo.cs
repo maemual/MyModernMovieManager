@@ -27,7 +27,7 @@ namespace Fish.MovieManager.DoubanActorInfo.Storage
         /// <summary>
         /// 性别，f/m
         /// </summary>
-        public virtual char gender { get; set; }
+        public virtual string gender { get; set; }
         /// <summary>
         /// 出生地
         /// </summary>

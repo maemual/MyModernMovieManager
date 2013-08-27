@@ -62,6 +62,9 @@ namespace Fish.MovieManager.DoubanMovieInfo.Storage
         /// 简介
         /// </summary>
         public virtual string summary { get; set; }
+
+        #endregion
+
         /// <summary>
         /// 影评人的豆瓣ID号，不进行数据库映射
         /// </summary>
@@ -70,6 +73,5 @@ namespace Fish.MovieManager.DoubanMovieInfo.Storage
         /// 电影的类型，不进行数据库的映射
         /// </summary>
         public List<string> genres { get; set; }
-        #endregion
     }
 }

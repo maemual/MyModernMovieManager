@@ -37,6 +37,7 @@ namespace Fish.MovieManager.DoubanMovieInfo.Storage
                 mapping.Property(model => model.ratingsCount, map => map.Column("ratingsCount"));
                 mapping.Property(model => model.directors, map => map.Column("directors"));
                 mapping.Property(model => model.doubanSite, map => map.Column("doubanSite"));
+                mapping.Property(model => model.image, map => map.Column("images"));
                 mapping.Property(model => model.year, map => map.Column("year"));
                 mapping.Property(model => model.countries, map => map.Column("countries"));
                 mapping.Property(model => model.summary, map => map.Column("summary"));

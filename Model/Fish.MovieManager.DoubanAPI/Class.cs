@@ -15,6 +15,7 @@ namespace Fish.MovieManager.DoubanAPI
     {
         private static Class _instance = new Class();
         public static Class Instance { get { return _instance; } }
+
         /// <summary>
         /// 根据关键词从豆瓣上搜索结果
         /// </summary>
@@ -25,9 +26,9 @@ namespace Fish.MovieManager.DoubanAPI
             string url = String.Format("https://api.douban.com/v2/movie/search?q={0}&count=1", keyword);
             
             var json = JObject.Parse(GetJson(url));
-            //Console.WriteLine(json);
             return int.Parse((String)json["subjects"][0]["id"]);
         }
+
         /// <summary>
         /// 根据电影名称，利用豆瓣的API抓取其主要信息
         /// </summary>
@@ -67,12 +68,12 @@ namespace Fish.MovieManager.DoubanAPI
             if (json.GetValue("images") != null)
             {
                 var getFile = Fish.MovieManager.GetFile.Class1.Instance;
-                string image_url = (string)json["images"]["medium"];
+                string image_url = (string)json["images"]["large"];
                 string image_name = GetFile.Class1.Instance.GetFileNameFromUrl(image_url);
                 string path = String.Format("{0}\\movie_images\\{1}", System.AppDomain.CurrentDomain.BaseDirectory, image_name);
                 movie.image = path;
 
-                Fish.MovieManager.GetFile.Class1.Instance.GetFileFromWeb(image_url, image_url);
+                Fish.MovieManager.GetFile.Class1.Instance.GetFileFromWeb(image_url, path);
             }
             if (json.GetValue("directors") != null)
             {
@@ -115,6 +116,7 @@ namespace Fish.MovieManager.DoubanAPI
             }
             return movie;
         }
+
         /// <summary>
         /// 根据影人ID号来从豆瓣抓取数据
         /// </summary>
@@ -126,35 +128,37 @@ namespace Fish.MovieManager.DoubanAPI
             string url = string.Format("https://api.douban.com/v2/movie/celebrity/{0}", id);
             var json = JObject.Parse(GetJson(url));
 
+            Console.WriteLine(json);
             actor.id = int.Parse((string)json["id"]);
             if (json.GetValue("name") != null)
             {
                 actor.name = (string)json["name"];
             }
-            if (json.GetValue("nameEn") != null)
+            if (json.GetValue("name_en") != null)
             {
-                actor.nameEn = (string)json["nameEn"];
+                actor.nameEn = (string)json["name_en"];
             }
             if (json.GetValue("gender") != null)
             {
                 actor.gender = (string)json["gender"];
             }
-            if (json.GetValue("bornPlace") != null)
+            if (json.GetValue("born_place") != null)
             {
-                actor.bornPlace = (string)json["bornPlace"];
+                actor.bornPlace = (string)json["born_place"];
             }
             if (json.GetValue("avatars") != null)
             {
                 var getFile = Fish.MovieManager.GetFile.Class1.Instance;
-                string image_url = (string)json["avatars"]["medium"];
+                string image_url = (string)json["avatars"]["large"];
                 string image_name = GetFile.Class1.Instance.GetFileNameFromUrl(image_url);
                 string path = String.Format("{0}\\avatars\\{1}", System.AppDomain.CurrentDomain.BaseDirectory, image_name);
                 actor.avatars = path;
 
-                Fish.MovieManager.GetFile.Class1.Instance.GetFileFromWeb(image_url, image_url);
+                Fish.MovieManager.GetFile.Class1.Instance.GetFileFromWeb(image_url, path);
             }
             return actor;
         }
+
         /// <summary>
         /// 根据上层构造的豆瓣API的URL，来获取豆瓣响应的JSON字符串
         /// </summary>

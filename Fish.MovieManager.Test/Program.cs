@@ -14,30 +14,46 @@ namespace Fish.MovieManager.Test
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(System.AppDomain.CurrentDomain.BaseDirectory);
-            Console.WriteLine(Fish.MovieManager.GetFile.Class1.Instance.GetFileNameFromUrl("http://img3.douban.com/view/photo/raw/public/p2104948746.jpg"));
+            //Console.WriteLine(System.AppDomain.CurrentDomain.BaseDirectory);
+            //Fish.MovieManager.GetFile.Class1.Instance.GetFileFromWeb("http://img4.douban.com/mpic/s3018008.jpg", System.AppDomain.CurrentDomain.BaseDirectory + "\\movie_images\\" + Fish.MovieManager.GetFile.Class1.Instance.GetFileNameFromUrl("http://img4.douban.com/mpic/s3018008.jpg"));
             //var tmp = Fish.MovieManager.DoubanAPI.Class.Instance;
             //tmp.GetMovieInfo("杀死比尔");
             //var tmp = Fish.MovieManager.GetMd5.GetMd5.Instance;
             //Console.WriteLine(tmp.Get("D:\\Pictures\\z01.png"));
-            //using (var session = StorageManager.Instance.OpenSession())
-            //{
-            //    //var tmp = new Fish.MovieManager.Movie2Actor.Storage.Movie2Actor();
-            //    //tmp.id = 1;
-            //    //tmp.doubanId = 4;
-                
-            //    //try
-            //    //{
-            //    //    session.BeginTransaction();
 
-            //    //    session.Save(tmp);
-            //    //    session.Transaction.Commit();
-            //    //}
-            //    //catch (Exception ex)
-            //    //{
-            //    //    session.Transaction.Rollback();
-            //    //    throw new Exception("失败", ex);
-            //    //}
+            //using (var session = Fish.MovieManager.DoubanMovieInfo.Storage.StorageManager.Instance.OpenSession())
+            //{
+            //    var m = Fish.MovieManager.DoubanAPI.Class.Instance.GetMovieInfo("杀死比尔");
+
+            //    try
+            //    {
+            //        session.BeginTransaction();
+            //        session.Save(m);
+
+            //        session.Transaction.Commit();
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        session.Transaction.Rollback();
+            //        throw new Exception("bad", ex);
+            //    }
+            //    int id = m.directors;
+            //    using (var s = Fish.MovieManager.DoubanActorInfo.Storage.StorageManager.Instance.OpenSession())
+            //    {
+            //        var d = Fish.MovieManager.DoubanAPI.Class.Instance.GetActorInfo(id);
+            //        try
+            //        {
+            //            s.BeginTransaction();
+            //            s.Save(d);
+
+            //            s.Transaction.Commit();
+            //        }
+            //        catch (Exception e)
+            //        {
+            //            s.Transaction.Rollback();
+            //            throw new Exception("some bad", e);
+            //        }
+            //    }
             //}
         }
     }

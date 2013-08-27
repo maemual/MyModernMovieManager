@@ -49,7 +49,6 @@ namespace Fish.MovieManager.DoubanAPI
             }
             if (json.GetValue("images") != null)
             {
-                
             }
             return movie;
         }

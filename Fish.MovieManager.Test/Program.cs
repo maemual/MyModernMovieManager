@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Fish.MovieManager.Movie2Actor.Storage;
 using NHibernate.Linq;
 using System.Net;
 using System.IO;
@@ -14,6 +13,24 @@ namespace Fish.MovieManager.Test
     {
         static void Main(string[] args)
         {
+            using (var session = Fish.MovieManager.VideoFileInfo.Storage.StorageManager.Instance.OpenSession())
+            {
+                var video = Fish.MovieManager.VideoFileInfo.Class1.Instance.GetVideoFileInfo("D:\\Videos\\Final.Fantasy.VII.Advent.Children.最终幻想VII.圣子降临(完整版).中文字幕.HR-HDTV.AC3.1024X576.x264-人人影视制作.mkv");
+
+                try
+                {
+                    session.BeginTransaction();
+                    session.Save(video);
+
+                    session.Transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    session.Transaction.Rollback();
+                    throw new Exception("bad", ex);
+                }
+            }
+
             //Console.WriteLine(System.AppDomain.CurrentDomain.BaseDirectory);
             //Fish.MovieManager.GetFile.Class1.Instance.GetFileFromWeb("http://img4.douban.com/mpic/s3018008.jpg", System.AppDomain.CurrentDomain.BaseDirectory + "\\movie_images\\" + Fish.MovieManager.GetFile.Class1.Instance.GetFileNameFromUrl("http://img4.douban.com/mpic/s3018008.jpg"));
             //var tmp = Fish.MovieManager.DoubanAPI.Class.Instance;

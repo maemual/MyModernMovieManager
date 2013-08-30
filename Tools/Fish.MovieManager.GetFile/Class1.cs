@@ -11,6 +11,7 @@ namespace Fish.MovieManager.GetFile
     public class Class1
     {
         private static Class1 _instance = new Class1();
+        private static List<string> extension = new List<string> { ".mkv", ".rmvb", ".mov", ".avi", ".mp4", ".3gp", ".mpg", ".mpeg", ".wmv", ".flv", ".swf", ".ogg"};
         public static Class1 Instance { get { return _instance; } }
 
         /// <summary>
@@ -53,6 +54,44 @@ namespace Fish.MovieManager.GetFile
                 System.Security.Cryptography.HashAlgorithm md5 = System.Security.Cryptography.MD5.Create();
                 return BitConverter.ToString(md5.ComputeHash(fs)).Replace("-", "");
             }
+        }
+        /// <summary>
+        /// 获取一个路径下所有文件及子目录下的文件
+        /// </summary>
+        /// <param name="pathname">路径</param>
+        public List<string> GetFilesFromPath(string pathname)
+        {
+            Stack<string> skDir = new Stack<string>();
+            List<string> res = new List<string>();
+            skDir.Push(pathname);
+            while (skDir.Count > 0)
+            {
+                pathname = skDir.Pop();
+                string[] subDirs = Directory.GetDirectories(pathname);
+                string[] subFiles = Directory.GetFiles(pathname);
+                if (subDirs != null)
+                {
+                    for (int i = 0; i < subDirs.Length; i++)
+                    {
+                        skDir.Push(subDirs[i]);
+                    }
+                }
+
+                if (subFiles != null)
+                {
+                    for (int i = 0; i < subFiles.Length; i++)
+                    {
+                        //string fileName = Path.GetFileName(subFiles[i]);
+                        //string houzhuiming = Path.GetExtension(subFiles[i]);
+                        // 处理文件
+                        //Console.WriteLine(subFiles[i]);
+                        var ext = Path.GetExtension(subFiles[i]);
+                        if (extension.Contains(ext))
+                            res.Add(subFiles[i]);
+                    }
+                }
+            }
+            return res;
         }
     }
 }

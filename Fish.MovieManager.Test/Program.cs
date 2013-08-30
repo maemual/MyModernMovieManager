@@ -13,10 +13,11 @@ namespace Fish.MovieManager.Test
     {
         static void Main(string[] args)
         {
+            Fish.MovieManager.MovieControl.Class1.Instance.ImportFiles("D:\\Videos");
             //using (var session = Fish.MovieManager.VideoFileInfo.Storage.StorageManager.Instance.OpenSession())
             //{
+            //    //var video = new Fish.MovieManager.VideoFileInfo.Storage.VideoFileInfo();
             //    var video = Fish.MovieManager.VideoFileInfo.Class1.Instance.GetVideoFileInfo("D:\\Videos\\Final.Fantasy.VII.Advent.Children.最终幻想VII.圣子降临(完整版).中文字幕.HR-HDTV.AC3.1024X576.x264-人人影视制作.mkv");
-
             //    try
             //    {
             //        session.BeginTransaction();

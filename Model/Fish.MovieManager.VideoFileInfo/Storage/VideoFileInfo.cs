@@ -63,7 +63,7 @@ namespace Fish.MovieManager.VideoFileInfo.Storage
         /// <summary>
         /// 视频总帧数
         /// </summary>
-        public virtual int totalFrames { get; set; }
+        public virtual long totalFrames { get; set; }
         /// <summary>
         /// 用户的评分
         /// </summary>

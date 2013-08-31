@@ -8,6 +8,11 @@ namespace Fish.MovieManager.DoubanMovieInfo.Storage
 {
     public class DoubanMovieInfo
     {
+        public DoubanMovieInfo()
+        {
+            casts = new List<int>();
+            genres = new List<string>();
+        }
         #region 数据库表属性
         /// <summary>
         /// 豆瓣上的条目ID
@@ -59,5 +64,14 @@ namespace Fish.MovieManager.DoubanMovieInfo.Storage
         public virtual string summary { get; set; }
 
         #endregion
+
+        /// <summary>
+        /// 影评人的豆瓣ID号，不进行数据库映射
+        /// </summary>
+        public List<int> casts { get; set; }
+        /// <summary>
+        /// 电影的类型，不进行数据库的映射
+        /// </summary>
+        public List<string> genres { get; set; }
     }
 }

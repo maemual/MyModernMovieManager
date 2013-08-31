@@ -57,6 +57,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Control\Fish.MovieManager.MovieControl\Fish.MovieManager.MovieControl.csproj">
+      <Project>{6a2e339a-b787-425f-90cc-2298d393c6ef}</Project>
+      <Name>Fish.MovieManager.MovieControl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Fish.MovieManager.DoubanActorInfo\Fish.MovieManager.DoubanActorInfo.csproj">
       <Project>{b589d12f-7ea5-4300-89c9-ae9db02d44cb}</Project>
       <Name>Fish.MovieManager.DoubanActorInfo</Name>
@@ -77,9 +81,9 @@
       <Project>{48653991-5148-48a5-8fe6-9bd8375242ad}</Project>
       <Name>Fish.MovieManager.VideoFileInfo</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Tools\Fish.MovieManager.GetMd5\Fish.MovieManager.GetMd5.csproj">
-      <Project>{0a0577d0-f66d-48ac-8e42-0b0022184d9b}</Project>
-      <Name>Fish.MovieManager.GetMd5</Name>
+    <ProjectReference Include="..\Tools\Fish.MovieManager.GetFile\Fish.MovieManager.GetFile.csproj">
+      <Project>{715d4cae-5802-4e6d-b951-582b56a47328}</Project>
+      <Name>Fish.MovieManager.GetFile</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

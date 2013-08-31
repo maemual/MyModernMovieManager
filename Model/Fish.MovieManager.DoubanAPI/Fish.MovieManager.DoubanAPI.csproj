@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{082C0119-49EA-4D92-AC26-DE560ED9C6CC}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{F4302AEE-3F94-472A-8FE0-CAC92168FCBC}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Fish.MovieManager.Test</RootNamespace>
-    <AssemblyName>Fish.MovieManager.Test</AssemblyName>
+    <RootNamespace>Fish.MovieManager.DoubanAPI</RootNamespace>
+    <AssemblyName>Fish.MovieManager.DoubanAPI</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,13 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
-    </Reference>
-    <Reference Include="NHibernate, Version=3.3.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\NHibernate.3.3.3.4001\lib\Net35\NHibernate.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -49,37 +42,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Class.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Model\Fish.MovieManager.DoubanActorInfo\Fish.MovieManager.DoubanActorInfo.csproj">
+    <ProjectReference Include="..\Fish.MovieManager.DoubanActorInfo\Fish.MovieManager.DoubanActorInfo.csproj">
       <Project>{b589d12f-7ea5-4300-89c9-ae9db02d44cb}</Project>
       <Name>Fish.MovieManager.DoubanActorInfo</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Model\Fish.MovieManager.DoubanAPI\Fish.MovieManager.DoubanAPI.csproj">
-      <Project>{f4302aee-3f94-472a-8fe0-cac92168fcbc}</Project>
-      <Name>Fish.MovieManager.DoubanAPI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Model\Fish.MovieManager.DoubanMovieInfo\Fish.MovieManager.DoubanMovieInfo.csproj">
+    <ProjectReference Include="..\Fish.MovieManager.DoubanMovieInfo\Fish.MovieManager.DoubanMovieInfo.csproj">
       <Project>{94851e53-7cb0-47e1-98f2-920c0279f1bd}</Project>
       <Name>Fish.MovieManager.DoubanMovieInfo</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Model\Fish.MovieManager.Movie2Actor\Fish.MovieManager.Movie2Actor.csproj">
-      <Project>{b23fb277-4f2d-4588-9ad7-7e478cea3cf7}</Project>
-      <Name>Fish.MovieManager.Movie2Actor</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Model\Fish.MovieManager.VideoFileInfo\Fish.MovieManager.VideoFileInfo.csproj">
-      <Project>{48653991-5148-48a5-8fe6-9bd8375242ad}</Project>
-      <Name>Fish.MovieManager.VideoFileInfo</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Tools\Fish.MovieManager.GetMd5\Fish.MovieManager.GetMd5.csproj">
-      <Project>{0a0577d0-f66d-48ac-8e42-0b0022184d9b}</Project>
-      <Name>Fish.MovieManager.GetMd5</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

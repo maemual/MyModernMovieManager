@@ -12,6 +12,8 @@ namespace Fish.MovieManager.Test
     {
         static void Main(string[] args)
         {
+            var tmp = Fish.MovieManager.DoubanAPI.Class.Instance;
+            Console.WriteLine(tmp.GetSearchResult("杀死比尔"));
             //var tmp = Fish.MovieManager.GetMd5.GetMd5.Instance;
             //Console.WriteLine(tmp.Get("D:\\Pictures\\z01.png"));
             //using (var session = StorageManager.Instance.OpenSession())

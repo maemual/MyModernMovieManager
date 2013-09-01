@@ -13,7 +13,19 @@ namespace Fish.MovieManager.Test
     {
         static void Main(string[] args)
         {
-            Fish.MovieManager.MovieControl.Class1.Instance.ImportFiles("D:\\Videos");
+            //using (var session = Fish.MovieManager.DoubanMovieInfo.Storage.StorageManager.Instance.OpenSession())
+            //{
+            //    var movie = Fish.MovieManager.DoubanControl.Class1.Instance.GetDoubanMovieInfo("七宗罪");
+            //    session.BeginTransaction();
+            //    session.Save(movie);
+            //    session.Transaction.Commit();
+            //}
+            //var tmp = Fish.MovieManager.MovieControl.Class1.Instance.GetAllFileInfo();
+            //foreach (var item in tmp)
+            //{
+            //    Console.WriteLine(item.path);
+            //}
+            //Fish.MovieManager.MovieControl.Class1.Instance.ImportFiles("D:\\Videos");
             //using (var session = Fish.MovieManager.VideoFileInfo.Storage.StorageManager.Instance.OpenSession())
             //{
             //    //var video = new Fish.MovieManager.VideoFileInfo.Storage.VideoFileInfo();

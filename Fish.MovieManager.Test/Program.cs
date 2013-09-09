@@ -13,6 +13,16 @@ namespace Fish.MovieManager.Test
     {
         static void Main(string[] args)
         {
+            //using (var session = Fish.MovieManager.VideoFileInfo.Storage.StorageManager.Instance.OpenSession())
+            //{
+            //    session.BeginTransaction();
+            //    var tmp = session.Query<Fish.MovieManager.VideoFileInfo.Storage.VideoFileInfo>().Where(o => o.id == 283).SingleOrDefault();
+            //    if (tmp != null)
+            //    {
+            //        session.Delete(tmp);
+            //        session.Transaction.Commit();
+            //    }
+            //}
             //using (var session = Fish.MovieManager.DoubanMovieInfo.Storage.StorageManager.Instance.OpenSession())
             //{
             //    var movie = Fish.MovieManager.DoubanControl.Class1.Instance.GetDoubanMovieInfo("七宗罪");

@@ -18,7 +18,7 @@ namespace Fish.MovieManager.VideoControl
         /// 导入路径下所有文件的信息
         /// </summary>
         /// <param name="path">路径</param>
-        public void ImportFiles(string path)
+        public bool ImportFiles(string path)
         {
             List<string> files = Fish.MovieManager.GetFile.Class1.Instance.GetFilesFromPath(path);
 
@@ -48,6 +48,57 @@ namespace Fish.MovieManager.VideoControl
             }
         }
 
+        /// <summary>
+        /// 根据文件的路径添加一个文件
+        /// </summary>
+        /// <param name="path">文件路径</param>
+        public bool ImportFile(string path)
+        {
+            using (var session = Fish.MovieManager.VideoFileInfo.Storage.StorageManager.Instance.OpenSession())
+            {
+                session.BeginTransaction();
+                var file = Fish.MovieManager.VideoFileInfo.Class1.Instance.GetVideoFileInfo(path);
+                file.path = path;
+                try
+                {
+                    var tmp = session.Query<VideoFileInfo.Storage.VideoFileInfo>().Where(o => o.path == path).SingleOrDefault();
+                    if (tmp == null)
+                    {
+                        session.Save(file);
+                        session.Transaction.Commit();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    session.Transaction.Rollback();
+                    throw new Exception("storage wrong", ex);
+                }
+            }
+            return true;
+        }
+
+        public bool DeleteFile(int id)
+        {
+            using (var session = Fish.MovieManager.VideoFileInfo.Storage.StorageManager.Instance.OpenSession())
+            {
+                var tmp = session.Query<Fish.MovieManager.VideoFileInfo.Storage.VideoFileInfo>().Where(o => o.id == id).SingleOrDefault();
+                session.BeginTransaction();
+                try
+                {
+                    if (tmp != null)
+                    {
+                        session.Delete(tmp);
+                        session.Transaction.Commit();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    session.Transaction.Rollback();
+                    throw new Exception("delete wrong", ex);
+                }
+            }
+            return true;
+        }
         /// <summary>
         /// 根据文件ID获取一个视频
         /// </summary>

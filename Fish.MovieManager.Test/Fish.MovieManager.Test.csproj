@@ -89,6 +89,10 @@
       <Project>{715d4cae-5802-4e6d-b951-582b56a47328}</Project>
       <Name>Fish.MovieManager.GetFile</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Tools\Fish.MovieManager.NetTest\Fish.MovieManager.NetTest.csproj">
+      <Project>{98a96839-8ee1-4bbb-9d2f-3c2cc11ffcbe}</Project>
+      <Name>Fish.MovieManager.NetTest</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

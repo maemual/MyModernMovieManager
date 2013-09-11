@@ -18,10 +18,10 @@ namespace Fish.MovieManager.VideoControl
         /// 导入路径下所有文件的信息
         /// </summary>
         /// <param name="path">路径</param>
-        public bool ImportFiles(string path)
+        public void ImportFiles(string path)
         {
             List<string> files = Fish.MovieManager.GetFile.Class1.Instance.GetFilesFromPath(path);
-
+            //导入视频文件信息
             using (var session = Fish.MovieManager.VideoFileInfo.Storage.StorageManager.Instance.OpenSession())
             {
                 session.BeginTransaction();
@@ -46,8 +46,146 @@ namespace Fish.MovieManager.VideoControl
                 }
                 session.Transaction.Commit();
             }
+            ImportDoubanInfo(files);
         }
 
+        /// <summary>
+        /// 导入豆瓣信息
+        /// </summary>
+        /// <param name="files">文件路径</param>
+        public void ImportDoubanInfo(List<string> files)
+        {
+            //导入电影信息
+            using (var session = Fish.MovieManager.DoubanMovieInfo.Storage.StorageManager.Instance.OpenSession())
+            {
+                session.BeginTransaction();
+                foreach (var item in files)
+                {
+                    var fileName = System.IO.Path.GetFileName(item);
+                    var movie = Fish.MovieManager.DoubanAPI.Class.Instance.GetMovieInfo(fileName);
+                    var tmp = session.Query<Fish.MovieManager.DoubanMovieInfo.Storage.DoubanMovieInfo>().Where(o => o.doubanId == movie.doubanId).SingleOrDefault();
+                    if (tmp == null)
+                    {
+                        try
+                        {
+                            session.Save(movie);
+                        }
+                        catch (Exception ex)
+                        {
+                            session.Transaction.Rollback();
+                            throw new Exception("wrong storage.", ex);
+                        }
+                        List<Fish.MovieManager.Movie2Tag.Storage.Movie2Tag> tag = new List<Movie2Tag.Storage.Movie2Tag>();
+                        foreach (var tags in movie.genres)
+                        {
+                            var t = new Fish.MovieManager.Movie2Tag.Storage.Movie2Tag();
+                            t.id = movie.doubanId;
+                            t.tag = tags;
+                            //Console.WriteLine(t.tag);
+                            tag.Add(t);
+                        }
+                        ImportMovieTag(tag);
+
+                        List<int> person = new List<int>();
+                        foreach (var p in movie.casts)
+                        {
+                            person.Add(p);
+                        }
+                        person.Add(movie.directors);
+                        List<Fish.MovieManager.Movie2Actor.Storage.Movie2Actor> actor = new List<Movie2Actor.Storage.Movie2Actor>();
+                        foreach (var act in person)
+                        {
+                            var t = new Fish.MovieManager.Movie2Actor.Storage.Movie2Actor();
+                            t.doubanId = movie.doubanId;
+                            t.id = act;
+                        }
+                        ImportActor(actor);
+                        ImportActorInfo(person);
+                    }
+                }
+                session.Transaction.Commit();
+            }
+        }
+
+        /// <summary>
+        /// 导入电影类型信息
+        /// </summary>
+        /// <param name="lst">Movie2Tag类型的list</param>
+        public void ImportMovieTag(List<Fish.MovieManager.Movie2Tag.Storage.Movie2Tag> lst)
+        {
+            using (var session = Fish.MovieManager.Movie2Tag.Storage.StorageManager.Instance.OpenSession())
+            {
+                session.BeginTransaction();
+                foreach (var item in lst)
+                {
+                    //Console.WriteLine(item.id + "  " + item.tag);
+                    var tmp = session.Query<Fish.MovieManager.Movie2Tag.Storage.Movie2Tag>().Where(o => o.id == item.id && o.tag == item.tag).SingleOrDefault();
+                    if (tmp == null)
+                    {
+                        try
+                        {
+                            //session.Save(item);
+                        }
+                        catch (Exception ex)
+                        {
+                            session.Transaction.Rollback();
+                            throw new Exception("wrong storage.", ex);
+                        }
+                    }
+                }
+            }
+        }
+
+        public void ImportActorInfo(List<int> lst)
+        {
+            using (var session = Fish.MovieManager.DoubanActorInfo.Storage.StorageManager.Instance.OpenSession())
+            {
+                session.BeginTransaction();
+                foreach (var item in lst)
+                {
+                    var actor = Fish.MovieManager.DoubanAPI.Class.Instance.GetActorInfo(item);
+                    var tmp = session.Query<Fish.MovieManager.DoubanActorInfo.Storage.DoubanActorInfo>().Where(o => o.id == actor.id).SingleOrDefault();
+                    if (tmp == null)
+                    {
+                        try
+                        {
+                            session.Save(actor);
+                        }
+                        catch (Exception ex)
+                        {
+                            session.Transaction.Rollback();
+                            throw new Exception("wrong storage.", ex);
+                        }
+                    }
+                }
+                session.Transaction.Commit();
+            }
+        }
+
+        public void ImportActor(List<Fish.MovieManager.Movie2Actor.Storage.Movie2Actor> lst)
+        {
+            using (var session = Fish.MovieManager.Movie2Actor.Storage.StorageManager.Instance.OpenSession())
+            {
+                session.BeginTransaction();
+                foreach (var item in lst)
+                {
+                    var tmp = session.Query<Fish.MovieManager.Movie2Actor.Storage.Movie2Actor>().Where(o => o.doubanId == item.doubanId && o.id == item.id).SingleOrDefault();
+                    try
+                    {
+                        if (tmp == null)
+                        {
+                            session.Save(item);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        session.Transaction.Rollback();
+                        throw new Exception("wrong storage.", ex);
+                    }
+                }
+                session.Transaction.Commit();
+            }
+        }
         /// <summary>
         /// 根据文件的路径添加一个文件
         /// </summary>
@@ -99,6 +237,7 @@ namespace Fish.MovieManager.VideoControl
             }
             return true;
         }
+
         /// <summary>
         /// 根据文件ID获取一个视频
         /// </summary>

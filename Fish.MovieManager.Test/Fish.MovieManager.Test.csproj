@@ -57,9 +57,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Control\Fish.MovieManager.MovieControl\Fish.MovieManager.MovieControl.csproj">
+    <ProjectReference Include="..\Control\Fish.MovieManager.DoubanControl\Fish.MovieManager.DoubanControl.csproj">
+      <Project>{dbcc3f68-7320-4e1c-812d-a7a7b86550cb}</Project>
+      <Name>Fish.MovieManager.DoubanControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Control\Fish.MovieManager.MovieControl\Fish.MovieManager.VideoControl.csproj">
       <Project>{6a2e339a-b787-425f-90cc-2298d393c6ef}</Project>
-      <Name>Fish.MovieManager.MovieControl</Name>
+      <Name>Fish.MovieManager.VideoControl</Name>
     </ProjectReference>
     <ProjectReference Include="..\Model\Fish.MovieManager.DoubanActorInfo\Fish.MovieManager.DoubanActorInfo.csproj">
       <Project>{b589d12f-7ea5-4300-89c9-ae9db02d44cb}</Project>
@@ -88,6 +92,10 @@
     <ProjectReference Include="..\Tools\Fish.MovieManager.GetFile\Fish.MovieManager.GetFile.csproj">
       <Project>{715d4cae-5802-4e6d-b951-582b56a47328}</Project>
       <Name>Fish.MovieManager.GetFile</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools\Fish.MovieManager.NetTest\Fish.MovieManager.NetTest.csproj">
+      <Project>{98a96839-8ee1-4bbb-9d2f-3c2cc11ffcbe}</Project>
+      <Name>Fish.MovieManager.NetTest</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

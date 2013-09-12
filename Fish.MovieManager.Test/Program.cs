@@ -13,8 +13,8 @@ namespace Fish.MovieManager.Test
     {
         static void Main(string[] args)
         {
-            //Fish.MovieManager.VideoControl.Class1.Instance.ImportFiles("D:\\Videos\\陆小凤传奇");
-            var tmp = Fish.MovieManager.DoubanAPI.Class.Instance.GetMovieInfo("陆小凤传奇之陆小凤前传");
+            Fish.MovieManager.VideoControl.Class1.Instance.ImportFiles("D:\\Movies");
+            //var tmp = Fish.MovieManager.DoubanAPI.Class.Instance.GetMovieInfo("陆小凤传奇之陆小凤前传");
             //Console.WriteLine(tmp.genres);
             //using (var session = Fish.MovieManager.VideoFileInfo.Storage.StorageManager.Instance.OpenSession())
             //{

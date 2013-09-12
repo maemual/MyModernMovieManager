@@ -42,7 +42,7 @@ namespace Fish.MovieManager.DoubanAPI
             string url = String.Format("https://api.douban.com/v2/movie/subject/{0}", doubanId);
             var json = JObject.Parse(GetJson(url));
 
-            Console.WriteLine(json);
+            //Console.WriteLine(json);
             movie.doubanId = int.Parse((string)json["id"]);
             movie.title = (string)json["title"];
             if (json.GetValue("original_title") != null)
@@ -78,17 +78,13 @@ namespace Fish.MovieManager.DoubanAPI
             }
             if (json.GetValue("directors") != null)
             {
-                //movie.directors = int.Parse((string)json["directors"][0]["id"]);
+                movie.directors = int.Parse((string)json["directors"][0]["id"]);
             }
             if (json.GetValue("casts") != null)
             {
                 foreach (var item in json["casts"].ToList())
                 {
-                    //if (item["id"] == null)
-                    //    Console.WriteLine("NULL");
-                    //string st = (string)item["id"];
-                    //if (st != "Null")
-                        //movie.casts.Add(int.Parse((string)item["id"]));
+                    movie.casts.Add(int.Parse((string)item["id"]));
                 }
             }
             if (json.GetValue("douban_site") != null)
@@ -103,7 +99,7 @@ namespace Fish.MovieManager.DoubanAPI
             {
                 foreach (var item in json["genres"].ToList())
                 {
-                    Console.WriteLine(item);
+                    //Console.WriteLine(item);
                     movie.genres.Add((string)item);
                 }
             }
@@ -134,7 +130,7 @@ namespace Fish.MovieManager.DoubanAPI
             string url = string.Format("https://api.douban.com/v2/movie/celebrity/{0}", id);
             var json = JObject.Parse(GetJson(url));
 
-            Console.WriteLine(json);
+            //Console.WriteLine(json);
             actor.id = int.Parse((string)json["id"]);
             if (json.GetValue("name") != null)
             {

@@ -58,6 +58,10 @@
       <Project>{48653991-5148-48a5-8fe6-9bd8375242ad}</Project>
       <Name>Fish.MovieManager.VideoFileInfo</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Fish.MovieManager.ActorControl\Fish.MovieManager.ActorControl.csproj">
+      <Project>{c40b50f9-c77f-49f1-a4e0-672e2e26349c}</Project>
+      <Name>Fish.MovieManager.ActorControl</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

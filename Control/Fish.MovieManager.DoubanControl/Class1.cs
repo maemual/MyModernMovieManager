@@ -38,5 +38,27 @@ namespace Fish.MovieManager.DoubanControl
                 return res;
             }
         }
+
+        public void AddDoubanMovieInfo(Fish.MovieManager.DoubanMovieInfo.Storage.DoubanMovieInfo movie)
+        {
+            using (var session = Fish.MovieManager.DoubanMovieInfo.Storage.StorageManager.Instance.OpenSession())
+            {
+                session.BeginTransaction();
+                var tmp = session.Query<Fish.MovieManager.DoubanMovieInfo.Storage.DoubanMovieInfo>().Where(o => o.doubanId == movie.doubanId).SingleOrDefault();
+                if (tmp == null)
+                {
+                    try
+                    {
+                        session.Save(movie);
+                        session.Transaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        session.Transaction.Rollback();
+                        throw new Exception("wrong storage.", ex);
+                    }
+                }
+            }
+        }
     }
 }

@@ -75,6 +75,18 @@
       <Project>{715d4cae-5802-4e6d-b951-582b56a47328}</Project>
       <Name>Fish.MovieManager.GetFile</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Fish.MovieManager.ActorControl\Fish.MovieManager.ActorControl.csproj">
+      <Project>{c40b50f9-c77f-49f1-a4e0-672e2e26349c}</Project>
+      <Name>Fish.MovieManager.ActorControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fish.MovieManager.DoubanControl\Fish.MovieManager.DoubanControl.csproj">
+      <Project>{dbcc3f68-7320-4e1c-812d-a7a7b86550cb}</Project>
+      <Name>Fish.MovieManager.DoubanControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fish.MovieManager.TagControl\Fish.MovieManager.TagControl.csproj">
+      <Project>{b2071588-f11e-4f86-bfc4-00d281eb8364}</Project>
+      <Name>Fish.MovieManager.TagControl</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

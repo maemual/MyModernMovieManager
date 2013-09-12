@@ -10,6 +10,9 @@ namespace Fish.MovieManager.TagControl
 {
     public class Class1
     {
+        private static Class1 _instance = new Class1();
+        public static Class1 Instance { get { return _instance; } }
+
         /// <summary>
         /// 获取一部电影的标签
         /// </summary>
@@ -61,6 +64,28 @@ namespace Fish.MovieManager.TagControl
                 }
             }
             return ans;
+        }
+
+        public void AddMovie2Tag(Fish.MovieManager.Movie2Tag.Storage.Movie2Tag tag)
+        {
+            using (var session = Fish.MovieManager.Movie2Tag.Storage.StorageManager.Instance.OpenSession())
+            {
+                session.BeginTransaction();
+                var tmp = session.Query<Fish.MovieManager.Movie2Tag.Storage.Movie2Tag>().Where(o => o.id == tag.id && o.tag == tag.tag).SingleOrDefault();
+                if (tmp == null)
+                {
+                    try
+                    {
+                        session.Save(tag);
+                        session.Transaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        session.Transaction.Rollback();
+                        throw new Exception("wrong storage.", ex);
+                    }
+                }
+            }
         }
     }
 }

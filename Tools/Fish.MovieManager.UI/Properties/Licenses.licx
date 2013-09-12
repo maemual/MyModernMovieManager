@@ -1,1 +1,12 @@
 C1.WPF.DataGrid.C1DataGrid, C1.WPF.DataGrid, Version=3.0.20132.341, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce
+C1.WPF.MediaPlayer.C1MediaPlayer, C1.WPF.MediaPlayer.4, Version=4.0.20132.341, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce
+C1.WPF.MediaPlayer.C1MediaPlayer, C1.WPF.MediaPlayer, Version=3.0.20132.341, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce
+C1.WPF.Extended.C1ColorPicker, C1.WPF.Extended.4, Version=4.0.20132.341, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce
+C1.WPF.RichTextBox.C1RichTextBox, C1.WPF.RichTextBox.4, Version=4.0.20132.341, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce
+C1.WPF.C1Window, C1.WPF, Version=3.0.20132.341, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce
+C1.WPF.C1Chart3D.C1Chart3D, C1.WPF.C1Chart3D, Version=3.0.20132.170, Culture=neutral, PublicKeyToken=f63432dd4d20448b
+C1.WPF.Extended.C1Book, C1.WPF.Extended, Version=3.0.20132.341, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce
+C1.WPF.C1ListBox, C1.WPF, Version=3.0.20132.341, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce
+C1.WPF.Maps.C1Maps, C1.WPF.Maps, Version=3.0.20132.341, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce
+C1.WPF.C1TabControl, C1.WPF, Version=3.0.20132.341, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce
+C1.WPF.Toolbar.C1ToolbarButton, C1.WPF.Toolbar, Version=3.0.20132.341, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce

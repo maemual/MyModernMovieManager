@@ -77,6 +77,10 @@
       <Project>{b23fb277-4f2d-4588-9ad7-7e478cea3cf7}</Project>
       <Name>Fish.MovieManager.Movie2Actor</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Model\Fish.MovieManager.Movie2Tag\Fish.MovieManager.Movie2Tag.csproj">
+      <Project>{3f0d6d44-af99-4c90-af2f-dc9996055eb0}</Project>
+      <Name>Fish.MovieManager.Movie2Tag</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Fish.MovieManager.VideoFileInfo\Fish.MovieManager.VideoFileInfo.csproj">
       <Project>{48653991-5148-48a5-8fe6-9bd8375242ad}</Project>
       <Name>Fish.MovieManager.VideoFileInfo</Name>

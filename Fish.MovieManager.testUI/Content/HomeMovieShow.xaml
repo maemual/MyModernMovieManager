@@ -24,7 +24,7 @@
 				<GridSplitter Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3"
 					VerticalAlignment="Center" HorizontalAlignment="Stretch" Background="#CFCFCF" Width="Auto" Height="1"/>
 
-				<DataGrid Grid.RowSpan="1" Grid.ColumnSpan="2"   ItemsSource="{Binding}"  AutoGenerateColumns="False" IsReadOnly="True" Margin="0,-20,0,10" FontSize="16" CanUserReorderColumns="False" >
+				<DataGrid Name="movieGrid" Grid.RowSpan="1" Grid.ColumnSpan="2"   ItemsSource="{Binding}"  AutoGenerateColumns="False" IsReadOnly="True" Margin="0,-20,0,10" FontSize="16" CanUserReorderColumns="False" >
 					<!--MouseDoubleClick="movieGrid_MouseDoubleClick">-->
 					<DataGrid.Columns>
 						<mui:DataGridTextColumn Header="中文名"  Binding="{Binding title}"/>

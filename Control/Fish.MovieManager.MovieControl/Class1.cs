@@ -117,7 +117,11 @@ namespace Fish.MovieManager.VideoControl
             ImportDoubanInfo(doubanMoives);
         }
 
-        public bool DeleteFile(int id)
+        /// <summary>
+        /// 根据给定的ID，删除文件信息
+        /// </summary>
+        /// <param name="id">文件ID</param>
+        public void DeleteFile(int id)
         {
             using (var session = Fish.MovieManager.VideoFileInfo.Storage.StorageManager.Instance.OpenSession())
             {
@@ -137,7 +141,6 @@ namespace Fish.MovieManager.VideoControl
                     throw new Exception("delete wrong", ex);
                 }
             }
-            return true;
         }
 
         /// <summary>
@@ -164,6 +167,56 @@ namespace Fish.MovieManager.VideoControl
             {
                 var tmp = session.Query<Fish.MovieManager.VideoFileInfo.Storage.VideoFileInfo>().ToList();
                 return tmp;
+            }
+        }
+
+        /// <summary>
+        /// 计算给定文件ID的MD5值
+        /// </summary>
+        /// <param name="id">文件ID</param>
+        public void SetMd5(int id)
+        {
+            using (var session = Fish.MovieManager.VideoFileInfo.Storage.StorageManager.Instance.OpenSession())
+            {
+                session.BeginTransaction();
+                var tmp = session.Query<Fish.MovieManager.VideoFileInfo.Storage.VideoFileInfo>().Where(o => o.id == id).SingleOrDefault();
+                var path = tmp.path;
+                var md5 = Fish.MovieManager.GetFile.Class1.Instance.GetFileMd5(path);
+                tmp.md5 = md5;
+
+                try
+                {
+                    session.Update(tmp);
+                    session.Transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    session.Transaction.Rollback();
+                    throw new Exception("wrong storage.", ex);
+                }
+            }
+        }
+
+        public void SetUserStar(int id, int star)
+        {
+            using (var session = Fish.MovieManager.VideoFileInfo.Storage.StorageManager.Instance.OpenSession())
+            {
+                session.BeginTransaction();
+                var tmp = session.Query<Fish.MovieManager.VideoFileInfo.Storage.VideoFileInfo>().Where(o => o.id == id).SingleOrDefault();
+                if (tmp != null)
+                {
+                    tmp.userRating = star;
+                    try
+                    {
+                        session.Update(tmp);
+                        session.Transaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        session.Transaction.Rollback();
+                        throw new Exception("wrong storage.", ex);
+                    }
+                }
             }
         }
     }

@@ -67,7 +67,7 @@ namespace Fish.MovieManager.DoubanControl
 
         public string GetDirectorName(int doubanId)
         {
-            int dirctor;
+            int dirctor = 0;
             using (var session = Fish.MovieManager.DoubanMovieInfo.Storage.StorageManager.Instance.OpenSession())
             {
                 var tmp = session.Query<Fish.MovieManager.DoubanMovieInfo.Storage.DoubanMovieInfo>().Where(o => o.doubanId == doubanId).SingleOrDefault();
@@ -76,7 +76,7 @@ namespace Fish.MovieManager.DoubanControl
                     dirctor = tmp.directors;
                 }
             }
-            string ans;
+            string ans = "";
             using (var session = Fish.MovieManager.DoubanActorInfo.Storage.StorageManager.Instance.OpenSession())
             {
                 var tmp = session.Query<Fish.MovieManager.DoubanActorInfo.Storage.DoubanActorInfo>().Where(o => o.id == dirctor).SingleOrDefault();

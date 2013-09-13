@@ -67,7 +67,7 @@
 		</Controls:WindowCommands>
 	</Controls:MetroWindow.WindowCommands>
 
-	<Grid >
+	<Grid Name="window_Grid">
 		<!--Controls:TextboxHelper.ButtonCommand="{Binding TextBoxButtonCmd, Mode=OneWay}"
                  Style="{DynamicResource SearchMetroTextBox}" />-->
 		<!--定义四行 两列-->
@@ -238,20 +238,18 @@
 							</Setter>
 						</Style>
 					</DataGrid.ColumnHeaderStyle>
-
-					<DataGrid.ContextMenu>
-						<ContextMenu x:Name="cm" StaysOpen="True" >
-							<MenuItem Header = "播放"		Click="Open_Click"/>
-							<MenuItem Header = "添加文件" Click="MenuItem_Add_Click"/>
-							<MenuItem Header = "添加文件夹" Click="MenuItem_AddFile_Click"/>
-							<MenuItem Header = "删除该电影" Click="MenuItem_Del_Click"/>
-						</ContextMenu>
-					</DataGrid.ContextMenu>
 				</DataGrid>
+				<TabItem.ContextMenu>
+					<ContextMenu x:Name="cm" StaysOpen="True" >
+						<MenuItem Header = "播放"		Click="Open_Click"/>
+						<MenuItem Header = "添加文件" Click="MenuItem_Add_Click"/>
+						<MenuItem Header = "添加文件夹" Click="MenuItem_AddFile_Click"/>
+						<MenuItem Header = "删除该电影" Click="MenuItem_Del_Click"/>
+					</ContextMenu>
+				</TabItem.ContextMenu>
 			</TabItem>
 		</TabControl>
 
-		
 		<TabControl Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,10" Grid.Row="3" Width="770" Grid.ColumnSpan="2" >
 			<TabItem Header="豆瓣信息">
 				<!--movi information-->

@@ -173,18 +173,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\backgroud.PNG" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Entypo-license.txt" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\green1.png" />
-    <Resource Include="images\blue1.png" />
     <Resource Include="images\loading.png" />
+    <Resource Include="images\blue.png" />
+    <Resource Include="images\green.PNG" />
+    <Resource Include="images\orange.png" />
+    <Resource Include="images\purple.png" />
+    <Resource Include="images\red.png" />
     <Content Include="MahApps.Metro.Resources.dll" />
   </ItemGroup>
   <ItemGroup>

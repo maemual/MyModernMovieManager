@@ -72,7 +72,8 @@ namespace Fish.MovieManager.UI
 	public partial class MainWindow
 	{
 		public static Theme currentTheme = Theme.Light;
-		public static Accent currentAccent = ThemeManager.DefaultAccents.First(x => x.Name == "Green");
+		public static Accent currentAccent = ThemeManager.DefaultAccents.First(x => x.Name == "Blue");
+		public string currentColor = "blue";
 		const int numTag = 31;
 		string[] movieTagstr = new string[numTag]
 		{
@@ -116,9 +117,9 @@ namespace Fish.MovieManager.UI
 
 			//image
 			ImageBrush ima = new ImageBrush();
-			ima.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/blue1.PNG"));
+			ima.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/blue.PNG"));
 			ima.Stretch = Stretch.Fill;
-			this.Background = ima;
+			this.window_Grid.Background = ima;
 			
 			//list
 			for (int i = 0; i < numTag;i++ )
@@ -130,9 +131,7 @@ namespace Fish.MovieManager.UI
 			//datagrid_getData
 			//ObservableCollection<VideoFileInfo.Storage.VideoFileInfo> moviedata = GetData();
 			//movieGrid.DataContext = moviedata;
-			//cover view
-			//this.DataContext = new MainViewModel();
-			
+
 			//row number
 			movieGrid.LoadingRow += new EventHandler<DataGridRowEventArgs>(dataGrid_LoadingRow);
 			
@@ -359,11 +358,16 @@ namespace Fish.MovieManager.UI
 		private void Light_Click(object sender, RoutedEventArgs e)
 		{
 			currentTheme = Theme.Light;
+			ImageBrush ima = new ImageBrush();
+			ima.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/" + currentColor + ".PNG"));
+			ima.Stretch = Stretch.Fill;
+			this.window_Grid.Background = ima;
 			ThemeManager.ChangeTheme(this, currentAccent, Theme.Light);
 		}
 		private void Dark_Click(object sender, RoutedEventArgs e)
 		{
 			currentTheme = Theme.Dark;
+			this.window_Grid.Background = null;
 			ThemeManager.ChangeTheme(this, currentAccent, Theme.Dark);
 		}
 		private void ChangeAccent(string accentName)
@@ -373,24 +377,53 @@ namespace Fish.MovieManager.UI
 		}
 		private void AccentRed(object sender, RoutedEventArgs e)
 		{
+			currentColor = "red";
 			this.ChangeAccent("Red");
+			if (currentTheme == Theme.Dark) return;
+			ImageBrush ima = new ImageBrush();
+			ima.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/red.PNG"));
+			ima.Stretch = Stretch.Fill;
+			this.window_Grid.Background = ima;
 		}
 		private void AccentGreen(object sender, RoutedEventArgs e)
 		{
+			currentColor = "green";
 			this.ChangeAccent("Green");
-			
+			if (currentTheme == Theme.Dark) return;
+			ImageBrush ima = new ImageBrush();
+			ima.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/green.PNG"));
+			ima.Stretch = Stretch.Fill;
+			this.window_Grid.Background = ima;
 		}
 		private void AccentBlue(object sender, RoutedEventArgs e)
 		{
+			currentColor = "blue";
 			this.ChangeAccent("Blue");
+			if (currentTheme == Theme.Dark) return;
+			ImageBrush ima = new ImageBrush();
+			ima.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/blue.PNG"));
+			ima.Stretch = Stretch.Fill;
+			this.window_Grid.Background = ima;
 		}
 		private void AccentPurple(object sender, RoutedEventArgs e)
 		{
 			this.ChangeAccent("Purple");
+			currentColor = "purple";
+			if (currentTheme == Theme.Dark) return;
+			ImageBrush ima = new ImageBrush();
+			ima.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/purple.PNG"));
+			ima.Stretch = Stretch.Fill;
+			this.window_Grid.Background = ima;
 		}
 		private void AccentOrange(object sender, RoutedEventArgs e)
 		{
 			this.ChangeAccent("Orange");
+			currentColor = "orange";
+			if (currentTheme == Theme.Dark) return;
+			ImageBrush ima = new ImageBrush();
+			ima.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/orange.PNG"));
+			ima.Stretch = Stretch.Fill;
+			this.window_Grid.Background = ima;
 		}
 
 		private void About_Click(object sender, RoutedEventArgs e)
@@ -402,15 +435,15 @@ namespace Fish.MovieManager.UI
 		//cal md5
 		private void md5_Click(object sender, RoutedEventArgs e)
 		{
-			MessageBoxResult confirmToCal = MessageBox.Show("计算电影md5值需要一定时间，是否确认计算？", "提示", MessageBoxButton.YesNo);
+			MessageBoxResult confirmToCal = MessageBox.Show("计算电影md5值需要一定时间，是否确认进行计算？", "提示", MessageBoxButton.YesNo);
 			if (confirmToCal == MessageBoxResult.Yes)
 			{
-				//var filetmp = getSelectFileInfo();
-				//string md5tmp = Fish.MovieManager.VideoControl.Class1.Instance.SetMd5(filetmp.id);
-				//if (md5tmp != null)
-				//{
-				//	this.text_md5.Text = md5tmp;
-				//}
+				var filetmp = getSelectFileInfo();
+				string md5tmp = Fish.MovieManager.VideoControl.Class1.Instance.SetMd5(filetmp.id);
+				if (md5tmp != null)
+				{
+					this.text_md5.Text = md5tmp;
+				}
 			}
 		}
 	}

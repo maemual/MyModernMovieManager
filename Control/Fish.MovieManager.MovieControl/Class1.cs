@@ -52,7 +52,10 @@ namespace Fish.MovieManager.VideoControl
                     }
                 }
             }
-            ImportDoubanInfo(doubanMoives);
+            if (Fish.MovieManager.NetTest.Class1.Instance.NetTest())
+            {
+                ImportDoubanInfo(doubanMoives);
+            }
         }
 
         /// <summary>
@@ -116,7 +119,10 @@ namespace Fish.MovieManager.VideoControl
                     throw new Exception("storage wrong", ex);
                 }
             }
-            ImportDoubanInfo(doubanMoives);
+            if (Fish.MovieManager.NetTest.Class1.Instance.NetTest())
+            {
+                ImportDoubanInfo(doubanMoives);
+            }
         }
 
         /// <summary>
@@ -176,14 +182,15 @@ namespace Fish.MovieManager.VideoControl
         /// 计算给定文件ID的MD5值
         /// </summary>
         /// <param name="id">文件ID</param>
-        public void SetMd5(int id)
+        public string SetMd5(int id)
         {
+            string md5;
             using (var session = Fish.MovieManager.VideoFileInfo.Storage.StorageManager.Instance.OpenSession())
             {
                 session.BeginTransaction();
                 var tmp = session.Query<Fish.MovieManager.VideoFileInfo.Storage.VideoFileInfo>().Where(o => o.id == id).SingleOrDefault();
                 var path = tmp.path;
-                var md5 = Fish.MovieManager.GetFile.Class1.Instance.GetFileMd5(path);
+                md5 = Fish.MovieManager.GetFile.Class1.Instance.GetFileMd5(path);
                 tmp.md5 = md5;
 
                 try
@@ -197,8 +204,14 @@ namespace Fish.MovieManager.VideoControl
                     throw new Exception("wrong storage.", ex);
                 }
             }
+            return md5;
         }
 
+        /// <summary>
+        /// 设置用户评分
+        /// </summary>
+        /// <param name="id">文件ID</param>
+        /// <param name="star">星级</param>
         public void SetUserStar(int id, int star)
         {
             using (var session = Fish.MovieManager.VideoFileInfo.Storage.StorageManager.Instance.OpenSession())

@@ -39,6 +39,10 @@ namespace Fish.MovieManager.DoubanControl
             }
         }
 
+        /// <summary>
+        /// 添加豆瓣电影信息到数据库中
+        /// </summary>
+        /// <param name="movie">豆瓣DoubanMovieInfo类型</param>
         public void AddDoubanMovieInfo(Fish.MovieManager.DoubanMovieInfo.Storage.DoubanMovieInfo movie)
         {
             using (var session = Fish.MovieManager.DoubanMovieInfo.Storage.StorageManager.Instance.OpenSession())
@@ -59,6 +63,29 @@ namespace Fish.MovieManager.DoubanControl
                     }
                 }
             }
+        }
+
+        public string GetDirectorName(int doubanId)
+        {
+            int dirctor;
+            using (var session = Fish.MovieManager.DoubanMovieInfo.Storage.StorageManager.Instance.OpenSession())
+            {
+                var tmp = session.Query<Fish.MovieManager.DoubanMovieInfo.Storage.DoubanMovieInfo>().Where(o => o.doubanId == doubanId).SingleOrDefault();
+                if (tmp != null)
+                {
+                    dirctor = tmp.directors;
+                }
+            }
+            string ans;
+            using (var session = Fish.MovieManager.DoubanActorInfo.Storage.StorageManager.Instance.OpenSession())
+            {
+                var tmp = session.Query<Fish.MovieManager.DoubanActorInfo.Storage.DoubanActorInfo>().Where(o => o.id == dirctor).SingleOrDefault();
+                if (tmp != null)
+                {
+                    ans = tmp.name;
+                }
+            }
+            return ans;
         }
     }
 }

@@ -13,7 +13,9 @@ namespace Fish.MovieManager.Test
     {
         static void Main(string[] args)
         {
-            Fish.MovieManager.VideoControl.Class1.Instance.SetUserStar(667, 5);
+            //Console.WriteLine(Fish.MovieManager.DoubanControl.Class1.Instance.GetActorName(1292000));
+            
+            //Fish.MovieManager.VideoControl.Class1.Instance.SetUserStar(667, 5);
             //Fish.MovieManager.VideoControl.Class1.Instance.ImportFile("D:\\Videos\\楚门的世界.rmvb");
             //var tmp = Fish.MovieManager.DoubanAPI.Class.Instance.GetMovieInfo("陆小凤传奇之陆小凤前传");
             //Console.WriteLine(tmp.genres);

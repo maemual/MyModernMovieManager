@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using NHibernate;
 using NHibernate.Linq;
 using Fish.MovieManager.VideoFileInfo;
+using System.Windows;
 
 namespace Fish.MovieManager.VideoControl
 {
@@ -96,6 +97,7 @@ namespace Fish.MovieManager.VideoControl
                 var file = Fish.MovieManager.VideoFileInfo.Class1.Instance.GetVideoFileInfo(path);
                 file.path = path;
                 var fileName = System.IO.Path.GetFileName(file.path);
+				
                 var movie = Fish.MovieManager.DoubanAPI.Class.Instance.GetMovieInfo(fileName);
                 doubanMoives.Add(movie);
                 file.doubanId = movie.doubanId;

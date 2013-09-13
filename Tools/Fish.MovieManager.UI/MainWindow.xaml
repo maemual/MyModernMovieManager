@@ -89,10 +89,21 @@
 		<ListBox x:Name="movieTagList" Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" Margin="10,20,10,20" FontSize="15" MouseLeftButtonUp="tagListBox_MouseButtonUp" />
 
 		<!--datagrid-->
-	<TabControl Grid.Column="1" HorizontalAlignment="Center" Margin="39,10" Grid.Row="1" VerticalAlignment="Center" Height="280" Width="974" Grid.ColumnSpan="3" >
+	<TabControl Name="movie_Tab" Grid.Column="1" HorizontalAlignment="Center" Margin="39,10" Grid.Row="1" VerticalAlignment="Center" Height="280" Width="974" Grid.ColumnSpan="3" >
 			<TabItem Header="封面视图">
 				<Grid>
-					<ListBox Name="list" ItemsSource="{Binding Images}"  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+					<ListBox ItemsSource="{Binding}"											
+					ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+					Name="movieList" HorizontalAlignment="Left"
+					MouseLeftButtonUp="movieGrid_MouseLeftButtonUp">
+						<ListBox.ContextMenu>
+							<ContextMenu x:Name="cm2" StaysOpen="True" >
+								<MenuItem Header = "播放"		Click="Open_Click"/>
+								<MenuItem Header = "添加文件"	Click="MenuItem_Add_Click"/>
+								<MenuItem Header = "添加文件夹" Click="MenuItem_AddFile_Click"/>
+								<MenuItem Header = "删除该电影" Click="MenuItem_Del_Click"/>
+							</ContextMenu>
+						</ListBox.ContextMenu>
 						<ListBox.ItemTemplate>
 							<DataTemplate>
 								<Grid >
@@ -102,8 +113,9 @@
 											<RowDefinition Height="4*" />
 											<RowDefinition Height="2*" />
 										</Grid.RowDefinitions>
-										<Image Stretch="UniformToFill" Grid.Row="0" Width="120" Height="150" Margin="10,10,10,10" local:ImageDecoder.Source="{Binding}"></Image>
-										<TextBlock Text="dfdfidhif" Grid.Row="1" HorizontalAlignment="Center"></TextBlock>
+										<Image Stretch="UniformToFill" Grid.Row="0" Width="120" Height="150" Margin="10,10,10,10" local:ImageDecoder.Source="{Binding image}"></Image>
+										<!--<Image Stretch="UniformToFill" Grid.Row="0" Width="120" Height="150" Margin="10,10,10,10" Source="{Binding images}"></Image>-->
+										<TextBlock Text="{Binding title}" Grid.Row="1" HorizontalAlignment="Center" ></TextBlock>
 									</Grid>
 								</Grid>
 							</DataTemplate>
@@ -120,12 +132,12 @@
 				<DataGrid Background="Transparent" BorderBrush="Transparent" x:Name="movieGrid" Grid.Row="1" Grid.Column="1" Margin="10,10,10,10" ItemsSource="{Binding}"  AutoGenerateColumns="False" IsReadOnly="True" FontSize="16" CanUserReorderColumns="False" MouseLeftButtonUp="movieGrid_MouseLeftButtonUp" Grid.ColumnSpan="3" BorderThickness="0,0,1,0">
 
 					<DataGrid.Columns>
-						<DataGridTextColumn Header="电影名称" Binding="{Binding name}" MaxWidth="100" />
+						<DataGridTextColumn Header="电影名称" Binding="{Binding title}" MaxWidth="100" />
 						<DataGridTextColumn Header="时长" Binding="{Binding duration}" />
 						<DataGridTextColumn Header="格式" Binding="{Binding extension}" />
-						<DataGridTextColumn Header="豆瓣评分" Binding="{Binding rating}" />
+						<DataGridTextColumn Header="豆瓣评分" Binding="{Binding rating,StringFormat='{}{0:N1}'}" />
 						<DataGridTextColumn Header="用户评分" Binding="{Binding userRating}" />
-						<DataGridTextColumn Header="文件路径" Binding="{Binding path}" />
+						<DataGridTextColumn Header="文件路径" Binding="{Binding path}" MaxWidth="200"/>
 					</DataGrid.Columns>
 
 					<DataGrid.RowHeaderStyle>
@@ -133,13 +145,6 @@
 							<Setter Property="Background" Value="Transparent"/>
 						</Style>
 					</DataGrid.RowHeaderStyle>
-					<!--<DataGrid.ColumnHeaderStyle>
-				<Style TargetType="DataGridColumnHeader">
-					<Setter Property="Background" Value="Transparent"/>
-					<Setter Property="HorizontalContentAlignment" Value="Center" />
-					<Setter Property="VerticalContentAlignment" Value="Center" />
-				</Style>
-			</DataGrid.ColumnHeaderStyle>-->
 
 					<DataGrid.ColumnHeaderStyle>
 						<Style  TargetType="{x:Type DataGridColumnHeader}">
@@ -250,13 +255,13 @@
 		<TabControl Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,10" Grid.Row="3" Width="770" Grid.ColumnSpan="2" >
 			<TabItem Header="豆瓣信息">
 				<!--movi information-->
-				<Grid x:Name="MovieGridInfo" Grid.Column="1" Grid.Row="3" Margin="5,5,5,5">
+				<Grid x:Name="MovieGridInfo" Grid.Column="1" Grid.Row="3" Margin="0,0,10,5">
 					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="90"/>
+						<ColumnDefinition Width="83"/>
 						<ColumnDefinition Width="2*"/>
-						<ColumnDefinition Width="90"/>
+						<ColumnDefinition Width="83"/>
 						<ColumnDefinition Width="2*"/>
-						<ColumnDefinition Width="55"/>
+						<ColumnDefinition Width="50"/>
 						<ColumnDefinition Width="4*"/>
 					</Grid.ColumnDefinitions>
 					<Grid.RowDefinitions>
@@ -271,14 +276,8 @@
 						<RowDefinition Height="4*" />
 						<RowDefinition Height="0" />
 						<RowDefinition Height="4*" />
-						<RowDefinition Height="1*" />
 					</Grid.RowDefinitions>
 
-					<!--<TextBlock Grid.Row="6" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="3,0,18,-1"><InlineUIContainer>
-				</InlineUIContainer><Run Text=" "/><InlineUIContainer>
-					
-				</InlineUIContainer></TextBlock>-->
-					<!--<Image x:Name="movieImage" Grid.RowSpan="7" HorizontalAlignment="Left" Height="84" Margin="10,10,0,0" VerticalAlignment="Top" Width="104" />-->
 					<TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"><Run Text="中文名：" FontSize="16px"/></TextBlock>
 					<TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"><Run Text="原名：" FontSize="16px"/></TextBlock>
 					<TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"><Run Text="又名：" FontSize="16px"/></TextBlock>
@@ -291,12 +290,12 @@
 					<TextBlock Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"><Run Text="豆瓣评分：" FontSize="16px"/></TextBlock>
 					<TextBlock Grid.Row="6" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"><Run Text="评分人数：" FontSize="16px"/></TextBlock>
 					<TextBlock Grid.Row="8" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"><Run Text="豆瓣小站：" FontSize="16px"/></TextBlock>
-					<Button x:Name="moviederectors"  Content="了解主演" Click="movieActors_Click" Grid.Row="10" Grid.Column="2" FontSize="14px" MaxHeight="30px" MaxWidth="80px">
+					<Button x:Name="moviederectors"  Content="了解主演" Click="movieActors_Click" Grid.Row="10" Grid.Column="2" FontSize="12px" MaxHeight="30px" MaxWidth="80px">
 						<i:Interaction.Triggers>
 							<i:EventTrigger EventName="Clcik"/>
 						</i:Interaction.Triggers>
 					</Button>
-					<Button x:Name="movieActors"  Content="了解导演" Click="movieActors_Click" Grid.Row="10" Grid.Column="3" FontSize="14px" MaxHeight="30px" MaxWidth="80px">
+					<Button x:Name="movieActors"  Content="了解导演" Click="movieActors_Click" Grid.Row="10" Grid.Column="3" FontSize="12px" MaxHeight="30px" MaxWidth="80px">
 						<i:Interaction.Triggers>
 							<i:EventTrigger EventName="Clcik"/>
 						</i:Interaction.Triggers>
@@ -304,18 +303,18 @@
 					<TextBlock Grid.Row="0" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center"><Run Text="简介：" FontSize="17px"/></TextBlock>
 
 
-					<TextBox Background="Transparent" BorderBrush="Transparent" TextWrapping="Wrap" FontSize="16px" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="title"/>
-					<TextBox Background="Transparent" BorderBrush="Transparent" TextWrapping="Wrap" FontSize="16px" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="originalTitle"/>
-					<TextBox Background="Transparent" BorderBrush="Transparent" TextWrapping="Wrap" FontSize="16px" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="aka"/>
-					<TextBox Background="Transparent" BorderBrush="Transparent" TextWrapping="Wrap" FontSize="16px" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="tag"/>
-					<TextBox Background="Transparent" BorderBrush="Transparent" TextWrapping="Wrap" FontSize="16px" Grid.Row="8" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="year"/>
-					<TextBox Background="Transparent" BorderBrush="Transparent" TextWrapping="Wrap" FontSize="16px" Grid.Row="10" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="countries"/>
-					<TextBox Background="Transparent" BorderBrush="Transparent" TextWrapping="Wrap" FontSize="16px" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="derectors"/>
-					<TextBox Background="Transparent" BorderBrush="Transparent" TextWrapping="Wrap" FontSize="16px" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="actors"/>
-					<TextBox Background="Transparent" BorderBrush="Transparent" TextWrapping="Wrap" FontSize="16px" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="rating"/>
-					<TextBox Background="Transparent" BorderBrush="Transparent" TextWrapping="Wrap" FontSize="16px" Grid.Row="6" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="ratingCount"/>
-					<TextBox Background="Transparent" BorderBrush="Transparent" TextWrapping="Wrap" FontSize="16px" Grid.Row="8" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="doubanSite"/>
-					<TextBox Background="Transparent" BorderBrush="Transparent" TextWrapping="Wrap" FontSize="16px" Grid.Row="0" Grid.Column="5" Grid.RowSpan="12" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="summary" />
+					<TextBox Background="Transparent" BorderBrush="Transparent" TextWrapping="Wrap"  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="text_title"/>
+					<TextBox Background="Transparent" BorderBrush="Transparent" TextWrapping="Wrap"  Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="text_originalTitle"/>
+					<TextBox Background="Transparent" BorderBrush="Transparent" TextWrapping="Wrap"  Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="text_aka"/>
+					<TextBox Background="Transparent" BorderBrush="Transparent" TextWrapping="Wrap"  Grid.Row="6" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="text_tag"/>
+					<TextBox Background="Transparent" BorderBrush="Transparent" TextWrapping="Wrap"  Grid.Row="8" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="text_year"/>
+					<TextBox Background="Transparent" BorderBrush="Transparent" TextWrapping="Wrap"  Grid.Row="10" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="text_countries"/>
+					<TextBox Background="Transparent" BorderBrush="Transparent" TextWrapping="Wrap"  Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="text_directors"/>
+					<TextBox Background="Transparent" BorderBrush="Transparent" TextWrapping="Wrap"  Grid.Row="2" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="text_actors"/>
+					<TextBox Background="Transparent" BorderBrush="Transparent" TextWrapping="Wrap"  Grid.Row="4" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="text_rating"/>
+					<TextBox Background="Transparent" BorderBrush="Transparent" TextWrapping="Wrap"  Grid.Row="6" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="text_ratingCount"/>
+					<TextBox Background="Transparent" BorderBrush="Transparent" TextWrapping="Wrap"  Grid.Row="8" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="text_doubanSite"/>
+					<TextBox Background="Transparent" BorderBrush="Transparent" TextWrapping="Wrap"  Grid.Row="0" Grid.Column="5" Grid.RowSpan="12" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="text_summary" />
 
 				</Grid>
 			</TabItem>
@@ -325,8 +324,8 @@
 						<ColumnDefinition Width="100"/>
 						<ColumnDefinition Width="2*"/>
 						<ColumnDefinition Width="100"/>
-						<ColumnDefinition Width="2*"/>
 						<ColumnDefinition Width="4*"/>
+						<ColumnDefinition Width="2*"/>
 					</Grid.ColumnDefinitions>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="4*" />
@@ -352,20 +351,20 @@
 					<TextBlock Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16px"><Run Text="总帧数："/></TextBlock>
 					<TextBlock Grid.Row="5" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16px"><Run Text="md5值："/></TextBlock>
 
-					<TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="file_doubanid"/>
-					<TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="file_extension"  TextWrapping="Wrap"/>
-					<TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="file_bitRate"/>
-					<TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="file_videoBitRate"/>
-					<TextBlock Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="file_audioBitRate"/>
-					<TextBlock Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="file_frameRate"/>
+					<TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="text_doubanid"/>
+					<TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="text_extension"  TextWrapping="Wrap"/>
+					<TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="text_bitRate"/>
+					<TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="text_videoBitRate"/>
+					<TextBlock Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="text_audioBitRate"/>
+					<TextBlock Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="text_frameRate"/>
 
-					<TextBlock Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="file_audioFormat"/>
-					<TextBlock Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="file_videoFormat"/>
-					<TextBlock Grid.Row="2" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="file_heigh"/>
-					<TextBlock Grid.Row="3" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="file_width"/>
-					<TextBlock Grid.Row="4" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="file_totalFrames"/>
-					<TextBlock Grid.Row="5" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="file_md5"/>
-					<Button x:Name="cal"  Content="计算md5值" Click="movieActors_Click" Grid.Row="5" Grid.Column="4" FontSize="14px" MaxHeight="30px" MaxWidth="100px" HorizontalAlignment="Left">
+					<TextBlock Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="text_audioFormat"/>
+					<TextBlock Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="text_videoFormat"/>
+					<TextBlock Grid.Row="2" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="text_heigh"/>
+					<TextBlock Grid.Row="3" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="text_width"/>
+					<TextBlock Grid.Row="4" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="text_totalFrames"/>
+					<TextBlock Grid.Row="5" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="text_md5"/>
+					<Button x:Name="cal"  Content="计算md5值" Click="md5_Click" Grid.Row="5" Grid.Column="4" FontSize="12px" MaxHeight="30px" MaxWidth="100px" HorizontalAlignment="Left">
 						<i:Interaction.Triggers>
 							<i:EventTrigger EventName="Clcik"/>
 						</i:Interaction.Triggers>
@@ -374,7 +373,7 @@
 			</TabItem>
 		</TabControl>
 		
-		<Image Grid.Column="1" Grid.Row="3" Margin="20,20,20,20" Source="C:\\Users\\withwind\\Pictures\\test\\1.jpg" />
+		<Image Name="movie_ShowImage" Grid.Column="1" Grid.Row="3" Margin="20,20,20,20" />
 		
 	</Grid>
 </Controls:MetroWindow>

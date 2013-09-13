@@ -47,6 +47,9 @@
     <Reference Include="C1.WPF.MediaPlayer.4, Version=4.0.20132.341, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce, processorArchitecture=MSIL" />
     <Reference Include="c1.wpf.richtextbox.4, Version=4.0.20132.341, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce, processorArchitecture=MSIL" />
     <Reference Include="c1.wpf.toolbar, Version=3.0.20132.341, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce, processorArchitecture=MSIL" />
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
+    </Reference>
     <Reference Include="MahApps.Metro, Version=0.0.0.999, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\MahApps.Metro.0.10.1.1\lib\net45\MahApps.Metro.dll</HintPath>
@@ -62,9 +65,8 @@
     <Reference Include="Microsoft.WindowsAPICodePack.Shell">
       <HintPath>..\..\..\test\WindowsAPICodePack\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
     </Reference>
-    <Reference Include="NHibernate, Version=3.3.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Fish.MovieManager.Test\bin\Debug\NHibernate.dll</HintPath>
+    <Reference Include="NHibernate">
+      <HintPath>..\..\packages\NHibernate.3.3.3.4001\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="ReachFramework" />
     <Reference Include="System" />
@@ -174,9 +176,33 @@
     <Resource Include="images\backgroud.PNG" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Control\Fish.MovieManager.MovieControl\Fish.MovieManager.MovieControl.csproj">
+    <Resource Include="Resources\Entypo-license.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\green1.png" />
+    <Resource Include="images\blue1.png" />
+    <Resource Include="images\loading.png" />
+    <Content Include="MahApps.Metro.Resources.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Control\Fish.MovieManager.ActorControl\Fish.MovieManager.ActorControl.csproj">
+      <Project>{c40b50f9-c77f-49f1-a4e0-672e2e26349c}</Project>
+      <Name>Fish.MovieManager.ActorControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Control\Fish.MovieManager.DoubanControl\Fish.MovieManager.DoubanControl.csproj">
+      <Project>{dbcc3f68-7320-4e1c-812d-a7a7b86550cb}</Project>
+      <Name>Fish.MovieManager.DoubanControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Control\Fish.MovieManager.MovieControl\Fish.MovieManager.VideoControl.csproj">
       <Project>{6a2e339a-b787-425f-90cc-2298d393c6ef}</Project>
-      <Name>Fish.MovieManager.MovieControl</Name>
+      <Name>Fish.MovieManager.VideoControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Control\Fish.MovieManager.TagControl\Fish.MovieManager.TagControl.csproj">
+      <Project>{b2071588-f11e-4f86-bfc4-00d281eb8364}</Project>
+      <Name>Fish.MovieManager.TagControl</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Model\Fish.MovieManager.DoubanActorInfo\Fish.MovieManager.DoubanActorInfo.csproj">
       <Project>{b589d12f-7ea5-4300-89c9-ae9db02d44cb}</Project>
@@ -198,18 +224,10 @@
       <Project>{48653991-5148-48a5-8fe6-9bd8375242ad}</Project>
       <Name>Fish.MovieManager.VideoFileInfo</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Entypo-license.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\green1.png" />
-    <Resource Include="images\blue1.png" />
-    <Resource Include="images\loading.png" />
-    <Content Include="MahApps.Metro.Resources.dll" />
+    <ProjectReference Include="..\Fish.MovieManager.GetFile\Fish.MovieManager.GetFile.csproj">
+      <Project>{715d4cae-5802-4e6d-b951-582b56a47328}</Project>
+      <Name>Fish.MovieManager.GetFile</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

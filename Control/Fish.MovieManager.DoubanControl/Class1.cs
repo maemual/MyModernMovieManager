@@ -30,7 +30,7 @@ namespace Fish.MovieManager.DoubanControl
         /// </summary>
         /// <param name="id">豆瓣ID</param>
         /// <returns>DoubanMovieInfo类型</returns>
-        public Fish.MovieManager.DoubanMovieInfo.Storage.DoubanMovieInfo GeDoubanMovieInfo(int id)
+        public Fish.MovieManager.DoubanMovieInfo.Storage.DoubanMovieInfo GetDoubanMovieInfo(int id)
         {
             using (var session = Fish.MovieManager.DoubanMovieInfo.Storage.StorageManager.Instance.OpenSession())
             {

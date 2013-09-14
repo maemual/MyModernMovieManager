@@ -37,7 +37,6 @@
 				<Setter Property="FontSize" Value="22" />
 				<Setter Property="HorizontalAlignment" Value="Center" />
 			</Style>
-			
 		</ResourceDictionary>
 	</Controls:MetroWindow.Resources>
 
@@ -89,7 +88,7 @@
 		<ListBox x:Name="movieTagList" Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" Margin="10,20,10,20" FontSize="15" MouseLeftButtonUp="tagListBox_MouseButtonUp" />
 
 		<!--datagrid-->
-	<TabControl Name="movie_Tab" Grid.Column="1" HorizontalAlignment="Center" Margin="39,10" Grid.Row="1" VerticalAlignment="Center" Height="280" Width="974" Grid.ColumnSpan="3" >
+		<TabControl Name="movie_Tab" Grid.Column="1" HorizontalAlignment="Center" Margin="39,10" Grid.Row="1" VerticalAlignment="Center" Height="280" Width="974" Grid.ColumnSpan="3" >
 			<TabItem Header="封面视图">
 				<Grid>
 					<ListBox ItemsSource="{Binding}"											
@@ -288,18 +287,24 @@
 					<TextBlock Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"><Run Text="豆瓣评分：" FontSize="16px"/></TextBlock>
 					<TextBlock Grid.Row="6" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"><Run Text="评分人数：" FontSize="16px"/></TextBlock>
 					<TextBlock Grid.Row="8" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"><Run Text="豆瓣小站：" FontSize="16px"/></TextBlock>
-					<Button x:Name="moviederectors"  Content="了解主演" Click="movieActors_Click" Grid.Row="10" Grid.Column="2" FontSize="12px" MaxHeight="30px" MaxWidth="80px">
-						<i:Interaction.Triggers>
-							<i:EventTrigger EventName="Clcik"/>
-						</i:Interaction.Triggers>
-					</Button>
-					<Button x:Name="movieActors"  Content="了解导演" Click="movieActors_Click" Grid.Row="10" Grid.Column="3" FontSize="12px" MaxHeight="30px" MaxWidth="80px">
-						<i:Interaction.Triggers>
-							<i:EventTrigger EventName="Clcik"/>
-						</i:Interaction.Triggers>
+
+					<Button x:Name="moviederectors"  Content="了解影人" Grid.Row="10" Grid.Column="2" FontSize="12px" MaxHeight="30px" MaxWidth="80px">
+						<Button.Triggers>
+							<EventTrigger RoutedEvent="Button.Click">
+								<BeginStoryboard>
+									<Storyboard>
+										<ColorAnimation Storyboard.TargetName="Flyout_Left" 
+												Storyboard.TargetProperty="Background.Color"  To="#333333" />
+										<DoubleAnimation Storyboard.TargetName="Flyout_Left" 
+												 Storyboard.TargetProperty="Height" Duration="0:0:0.01" To="1500" />
+										<DoubleAnimation Storyboard.TargetName="Flyout_Right" 
+														 Storyboard.TargetProperty="Width" Duration="0:0:0.3" To="400" />
+									</Storyboard>
+								</BeginStoryboard>
+							</EventTrigger>
+						</Button.Triggers>
 					</Button>
 					<TextBlock Grid.Row="0" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center"><Run Text="简介：" FontSize="17px"/></TextBlock>
-
 
 					<TextBox Background="Transparent" BorderBrush="Transparent" TextWrapping="Wrap"  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="text_title"/>
 					<TextBox Background="Transparent" BorderBrush="Transparent" TextWrapping="Wrap"  Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="text_originalTitle"/>
@@ -370,8 +375,155 @@
 				</Grid>
 			</TabItem>
 		</TabControl>
-		
-		<Image Name="movie_ShowImage" Grid.Column="1" Grid.Row="3" Margin="20,20,20,20" />
-		
+
+		<Image Name="movie_ShowImage" Grid.Column="1" Grid.Row="3" Margin="20,20,20,20" Source="pack://application:,,,/images/loading.png" />
+
+		<Grid x:Name="movie_Flyout" Width="1500" Height="800" Grid.ColumnSpan="4" Grid.Row="0" Grid.RowSpan="4"  VerticalAlignment="Top"  HorizontalAlignment="Right" >
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="80*"/>
+				<ColumnDefinition Width="400"/>
+			</Grid.ColumnDefinitions>
+			<Grid Opacity="0.3" Background="#333333" x:Name="Flyout_Left" Height="1000px" Width="1000px" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+				<Grid.Triggers>
+					<EventTrigger RoutedEvent="Mouse.MouseDown">
+						<BeginStoryboard>
+							<Storyboard>
+								<ColorAnimation Storyboard.TargetName="Flyout_Left" 
+												Storyboard.TargetProperty="Background.Color"  To="Transparent" />
+								<DoubleAnimation Storyboard.TargetName="Flyout_Left" 
+												 Storyboard.TargetProperty="Height" Duration="0:0:0.01" To="0" />
+								<DoubleAnimation Storyboard.TargetName="Flyout_Right" Storyboard.TargetProperty="Width" 
+												Duration="0:0:0.3" To="0" />
+							</Storyboard>
+						</BeginStoryboard>
+					</EventTrigger>
+				</Grid.Triggers>
+			</Grid>
+			<Grid x:Name="Flyout_Right" HorizontalAlignment="Right" Background="#333333" Grid.Row="0" Grid.Column="1" Height="1000px" Width="1500px">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="10*"/>
+					<RowDefinition Height="50*"/>
+					<RowDefinition Height="10*"/>
+					<RowDefinition Height="60*"/>
+					<RowDefinition Height="70*"/>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="80*"/>
+					<ColumnDefinition Width="150"/>
+					<ColumnDefinition Width="250"/>
+				</Grid.ColumnDefinitions>
+				<Label Content="导演信息" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" Height="40"  VerticalAlignment="Center" Width="85" FontSize="18px" Foreground="White" />
+				<Label Content="主演信息" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" Height="40"  VerticalAlignment="Center" Width="85" FontSize="18px" Foreground="White" />
+				<Grid Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Height="250" Width="350" HorizontalAlignment="Center" VerticalAlignment="Top">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="30*"/>
+						<ColumnDefinition Width="25*"/>
+						<ColumnDefinition Width="45*"/>
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="5*"/>
+						<RowDefinition Height="10*"/>
+						<RowDefinition Height="10*"/>
+						<RowDefinition Height="10*"/>
+						<RowDefinition Height="10*"/>
+						<RowDefinition Height="5*"/>
+					</Grid.RowDefinitions>
+					<Image Name="diretorImage" Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+					<TextBlock Text="中文名:" Grid.Column="1" Grid.Row="1" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16px"></TextBlock>
+					<TextBlock Text="英文名:" Grid.Column="1" Grid.Row="2" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16px"></TextBlock>
+					<TextBlock Text="性别:" Grid.Column="1" Grid.Row="3" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16px"></TextBlock>
+					<TextBlock Text="出生地:" Grid.Column="1" Grid.Row="4" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16px"></TextBlock>
+					<TextBlock Grid.Column="2" Grid.Row="1" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13px" x:Name="direct_name"></TextBlock>
+					<TextBlock Grid.Column="2" Grid.Row="2" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13px" x:Name="direct_nameEn"></TextBlock>
+					<TextBlock Grid.Column="2" Grid.Row="3" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13px" x:Name="direct_gender"></TextBlock>
+					<TextBlock Grid.Column="2" Grid.Row="4" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13px" x:Name="direct_bornPlace"></TextBlock>
+				</Grid>
+				<TabControl Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Top" Width="400" Height="400" Margin="10,10,10,10">
+					<TabItem Name="actor1Item" Header="主演1">
+						<Grid Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Height="250" Width="350" 
+							  HorizontalAlignment="Center" VerticalAlignment="Top">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="30*"/>
+								<ColumnDefinition Width="25*"/>
+								<ColumnDefinition Width="45*"/>
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="5*"/>
+								<RowDefinition Height="10*"/>
+								<RowDefinition Height="10*"/>
+								<RowDefinition Height="10*"/>
+								<RowDefinition Height="10*"/>
+								<RowDefinition Height="5*"/>
+							</Grid.RowDefinitions>
+							<Image Name="actor1Image" Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							<TextBlock Text="中文名:" Grid.Column="1" Grid.Row="1" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16px"></TextBlock>
+							<TextBlock Text="英文名:" Grid.Column="1" Grid.Row="2" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16px"></TextBlock>
+							<TextBlock Text="性别:" Grid.Column="1" Grid.Row="3" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16px"></TextBlock>
+							<TextBlock Text="出生地:" Grid.Column="1" Grid.Row="4" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16px"></TextBlock>
+							<TextBlock Grid.Column="2" Grid.Row="1" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13px" x:Name="actor1_name"></TextBlock>
+							<TextBlock Grid.Column="2" Grid.Row="2" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13px" x:Name="actor1_nameEn"></TextBlock>
+							<TextBlock Grid.Column="2" Grid.Row="3" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13px" x:Name="actor1_gender"></TextBlock>
+							<TextBlock Grid.Column="2" Grid.Row="4" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13px" x:Name="actor1_bornPlace"></TextBlock>
+						</Grid>
+					</TabItem>
+					<TabItem Name="actor2Item" Header="主演2">
+						<Grid Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Height="250" Width="350" 
+							  HorizontalAlignment="Center" VerticalAlignment="Top">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="30*"/>
+								<ColumnDefinition Width="25*"/>
+								<ColumnDefinition Width="45*"/>
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="5*"/>
+								<RowDefinition Height="10*"/>
+								<RowDefinition Height="10*"/>
+								<RowDefinition Height="10*"/>
+								<RowDefinition Height="10*"/>
+								<RowDefinition Height="5*"/>
+							</Grid.RowDefinitions>
+							<Image Name="actor2Image" Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							<TextBlock Text="中文名:" Grid.Column="1" Grid.Row="1" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16px"></TextBlock>
+							<TextBlock Text="英文名:" Grid.Column="1" Grid.Row="2" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16px"></TextBlock>
+							<TextBlock Text="性别:" Grid.Column="1" Grid.Row="3" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16px"></TextBlock>
+							<TextBlock Text="出生地:" Grid.Column="1" Grid.Row="4" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16px"></TextBlock>
+							<TextBlock Grid.Column="2" Grid.Row="1" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13px" x:Name="actor2_name"></TextBlock>
+							<TextBlock Grid.Column="2" Grid.Row="2" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13px" x:Name="actor2_nameEn"></TextBlock>
+							<TextBlock Grid.Column="2" Grid.Row="3" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13px" x:Name="actor2_gender"></TextBlock>
+							<TextBlock Grid.Column="2" Grid.Row="4" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13px" x:Name="actor2_bornPlace"></TextBlock>
+						</Grid>
+					</TabItem>
+					<TabItem Name="actor3Item" Header="主演3">
+						<Grid Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Height="250" Width="350" 
+							  HorizontalAlignment="Center" VerticalAlignment="Top">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="30*"/>
+								<ColumnDefinition Width="25*"/>
+								<ColumnDefinition Width="45*"/>
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="5*"/>
+								<RowDefinition Height="10*"/>
+								<RowDefinition Height="10*"/>
+								<RowDefinition Height="10*"/>
+								<RowDefinition Height="10*"/>
+								<RowDefinition Height="5*"/>
+							</Grid.RowDefinitions>
+							<Image Name="actor3Image" Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							<TextBlock Text="中文名:" Grid.Column="1" Grid.Row="1" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16px"></TextBlock>
+							<TextBlock Text="英文名:" Grid.Column="1" Grid.Row="2" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16px"></TextBlock>
+							<TextBlock Text="性别:" Grid.Column="1" Grid.Row="3" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16px"></TextBlock>
+							<TextBlock Text="出生地:" Grid.Column="1" Grid.Row="4" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16px"></TextBlock>
+							<TextBlock Grid.Column="2" Grid.Row="1" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13px" x:Name="actor3_name"></TextBlock>
+							<TextBlock Grid.Column="2" Grid.Row="2" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13px" x:Name="actor3_nameEn"></TextBlock>
+							<TextBlock Grid.Column="2" Grid.Row="3" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13px" x:Name="actor3_gender"></TextBlock>
+							<TextBlock Grid.Column="2" Grid.Row="4" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13px" x:Name="actor3_bornPlace"></TextBlock>
+						</Grid>
+					</TabItem>
+				</TabControl>
+
+
+			</Grid>
+		</Grid>
 	</Grid>
 </Controls:MetroWindow>

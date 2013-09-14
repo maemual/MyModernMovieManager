@@ -59,6 +59,14 @@
       <Project>{94851e53-7cb0-47e1-98f2-920c0279f1bd}</Project>
       <Name>Fish.MovieManager.DoubanMovieInfo</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Model\Fish.MovieManager.Movie2Actor\Fish.MovieManager.Movie2Actor.csproj">
+      <Project>{b23fb277-4f2d-4588-9ad7-7e478cea3cf7}</Project>
+      <Name>Fish.MovieManager.Movie2Actor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\Fish.MovieManager.Movie2Tag\Fish.MovieManager.Movie2Tag.csproj">
+      <Project>{3f0d6d44-af99-4c90-af2f-dc9996055eb0}</Project>
+      <Name>Fish.MovieManager.Movie2Tag</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

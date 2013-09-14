@@ -126,11 +126,7 @@ namespace Fish.MovieManager.UI
 				this.movieTagList.Items.Add(movieTagstrShow[i]);
 
 			//update
-			datagrid_Update(GetData());
-
-			//datagrid_getData
-			//ObservableCollection<VideoFileInfo.Storage.VideoFileInfo> moviedata = GetData();
-			//movieGrid.DataContext = moviedata;
+			datagrid_Update(Fish.MovieManager.VideoControl.Class1.Instance.GetAllFileInfo());
 
 			//row number
 			movieGrid.LoadingRow += new EventHandler<DataGridRowEventArgs>(dataGrid_LoadingRow);
@@ -165,13 +161,13 @@ namespace Fish.MovieManager.UI
 		{
 			if (this.movieTagList.SelectedItem == null || this.movieTagList.SelectedIndex == -1)
 			{
-				datagrid_Update(GetData());
+				datagrid_Update(Fish.MovieManager.VideoControl.Class1.Instance.GetAllFileInfo());
 				return;
 			}
 			string str = movieTagstr[this.movieTagList.SelectedIndex];
 			if (str == movieTagstr[0])
 			{
-				datagrid_Update(GetData());
+				datagrid_Update(Fish.MovieManager.VideoControl.Class1.Instance.GetAllFileInfo());
 			}
 			else
 			{
@@ -181,21 +177,21 @@ namespace Fish.MovieManager.UI
 		}
 
 		//loading in datagrid
-		private List<VideoFileInfo.Storage.VideoFileInfo> GetData()
-		{
-			//var movie = new ObservableCollection<VideoFileInfo.Storage.VideoFileInfo>();
-			var movie = new List<VideoFileInfo.Storage.VideoFileInfo>();
-			using (var session = Fish.MovieManager.VideoFileInfo.Storage.StorageManager.Instance.OpenSession())
-			{
-				var tmp = session.Query<VideoFileInfo.Storage.VideoFileInfo>().ToList();
-				foreach (var i in tmp)
-				{
-					movie.Add(i);
-				}
-			}
-			return movie;
-		}
-		//line number
+		//private List<VideoFileInfo.Storage.VideoFileInfo> GetData()
+		//{
+		//	//var movie = new ObservableCollection<VideoFileInfo.Storage.VideoFileInfo>();
+		//	var movie = new List<VideoFileInfo.Storage.VideoFileInfo>();
+		//	using (var session = Fish.MovieManager.VideoFileInfo.Storage.StorageManager.Instance.OpenSession())
+		//	{
+		//		var tmp = session.Query<VideoFileInfo.Storage.VideoFileInfo>().ToList();
+		//		foreach (var i in tmp)
+		//		{
+		//			movie.Add(i);
+		//		}
+		//	}
+		//	return movie;
+		//}
+		///row number
 		public void dataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
 		{
 			e.Row.Header = e.Row.GetIndex() + 1;
@@ -232,11 +228,11 @@ namespace Fish.MovieManager.UI
 				this.text_title.Text = doubantmp.title;
 				this.text_originalTitle.Text = doubantmp.originalTitle;
 				this.text_aka.Text = doubantmp.aka;
-				//!!!this.text_tag.Text = doubantmp
+				this.text_tag.Text = Fish.MovieManager.DoubanControl.Class1.Instance.GetMovieTag(doubantmp.doubanId);
 				this.text_year.Text = doubantmp.year.ToString();
 				this.text_countries.Text = doubantmp.countries;
-				//this.text_directors.Text = doubantmp.directors;
-				//this.text_actors.Text = doubantmp.a
+				this.text_directors.Text = Fish.MovieManager.DoubanControl.Class1.Instance.GetDirectorName(doubantmp.doubanId);
+				this.text_actors.Text = Fish.MovieManager.DoubanControl.Class1.Instance.GetActorName(doubantmp.doubanId);
 				this.text_rating.Text = string.Format("{0:N1}",doubantmp.rating);
 				this.text_ratingCount.Text = doubantmp.ratingsCount.ToString();
 				this.text_doubanSite.Text = doubantmp.doubanSite;
@@ -246,7 +242,74 @@ namespace Fish.MovieManager.UI
 				bitmap.UriSource = new Uri(doubantmp.image);
 				bitmap.CacheOption = BitmapCacheOption.OnLoad;
 				this.movie_ShowImage.Source = bitmap;
-				bitmap.EndInit();				
+				bitmap.EndInit();
+
+				var people = Fish.MovieManager.ActorControl.Class1.Instance.GetActorByID(doubantmp.doubanId);
+				int actorNum = 0;
+				foreach (var ptmp in people)
+				{
+					MessageBox.Show(people.Count.ToString());
+					MessageBox.Show(ptmp.id.ToString());
+					if (ptmp.id == doubantmp.directors)
+					{
+						bitmap = new BitmapImage();
+						bitmap.BeginInit();
+						bitmap.UriSource = new Uri(ptmp.avatars);
+						bitmap.CacheOption = BitmapCacheOption.OnLoad;
+						this.diretorImage.Source = bitmap;
+						bitmap.EndInit();
+						this.direct_name.Text = ptmp.name;
+						this.direct_nameEn.Text = ptmp.nameEn;
+						this.direct_gender.Text = ptmp.gender;
+						this.direct_bornPlace.Text = ptmp.bornPlace;
+					}
+					else 
+					{
+						actorNum++;
+						if (actorNum == 1)
+						{
+							bitmap = new BitmapImage();
+							bitmap.BeginInit();
+							bitmap.UriSource = new Uri(ptmp.avatars);
+							bitmap.CacheOption = BitmapCacheOption.OnLoad;
+							this.actor1Image.Source = bitmap;
+							bitmap.EndInit();
+							this.actor1Item.Header = ptmp.name;
+							this.actor1_name.Text = ptmp.name;
+							this.actor1_nameEn.Text = ptmp.nameEn;
+							this.actor1_gender.Text = ptmp.gender;
+							this.actor1_bornPlace.Text = ptmp.bornPlace;
+						}
+						else if (actorNum == 2)
+						{
+							bitmap = new BitmapImage();
+							bitmap.BeginInit();
+							bitmap.UriSource = new Uri(ptmp.avatars);
+							bitmap.CacheOption = BitmapCacheOption.OnLoad;
+							this.actor2Image.Source = bitmap;
+							bitmap.EndInit();
+							this.actor2Item.Header = ptmp.name;
+							this.actor2_name.Text = ptmp.name;
+							this.actor2_nameEn.Text = ptmp.nameEn;
+							this.actor2_gender.Text = ptmp.gender;
+							this.actor2_bornPlace.Text = ptmp.bornPlace;
+						}
+						else
+						{
+							bitmap = new BitmapImage();
+							bitmap.BeginInit();
+							bitmap.UriSource = new Uri(ptmp.avatars);
+							bitmap.CacheOption = BitmapCacheOption.OnLoad;
+							this.actor3Image.Source = bitmap;
+							bitmap.EndInit();
+							this.actor3Item.Header = ptmp.name;
+							this.actor3_name.Text = ptmp.name;
+							this.actor3_nameEn.Text = ptmp.nameEn;
+							this.actor3_gender.Text = ptmp.gender;
+							this.actor3_bornPlace.Text = ptmp.bornPlace;
+						}
+					}
+				}
 			}
 		}
 
@@ -263,6 +326,7 @@ namespace Fish.MovieManager.UI
 			{
 				showIndex = movieGrid.SelectedIndex;
 			}
+			if (showIndex < 0) return null;
 			var t = movieGrid.Items[showIndex] as DataListView;
 			DoubanMovieInfo.Storage.DoubanMovieInfo tmp = Fish.MovieManager.DoubanControl.Class1.Instance.GetDoubanMovieInfo(t.doubanId);
 			return tmp;
@@ -279,22 +343,10 @@ namespace Fish.MovieManager.UI
 			{
 				showIndex = movieGrid.SelectedIndex;
 			}
+			if (showIndex < 0) return null;
 			var t = movieGrid.Items[showIndex] as DataListView;
 			VideoFileInfo.Storage.VideoFileInfo tmp = Fish.MovieManager.VideoControl.Class1.Instance.GetFileInfo(t.id);
 			return tmp;
-		}
-
-		//button director actor 
-		private void movieDirectors_Click(object sender, RoutedEventArgs e)
-		{
-			
-		}
-		private void movieActors_Click(object sender, RoutedEventArgs e)
-		{
-			var tmp = movieGrid.SelectedItem as VideoFileInfo.Storage.VideoFileInfo;
-			if (tmp == null) return;
-			Fish.MovieManager.UI.dialog.actorInfo_Dialog dlg = new dialog.actorInfo_Dialog(tmp.doubanId);
-			dlg.Show();
 		}
 
 		//open

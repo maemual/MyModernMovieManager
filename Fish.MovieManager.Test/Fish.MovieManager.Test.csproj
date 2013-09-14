@@ -57,6 +57,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Control\Fish.MovieManager.ActorControl\Fish.MovieManager.ActorControl.csproj">
+      <Project>{c40b50f9-c77f-49f1-a4e0-672e2e26349c}</Project>
+      <Name>Fish.MovieManager.ActorControl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Control\Fish.MovieManager.DoubanControl\Fish.MovieManager.DoubanControl.csproj">
       <Project>{dbcc3f68-7320-4e1c-812d-a7a7b86550cb}</Project>
       <Name>Fish.MovieManager.DoubanControl</Name>

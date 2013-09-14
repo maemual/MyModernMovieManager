@@ -25,10 +25,11 @@ namespace Fish.MovieManager.ActorControl
             var id = new List<int>();
             using (var session = Fish.MovieManager.Movie2Actor.Storage.StorageManager.Instance.OpenSession())
             {
-                var tmp = session.Query<Fish.MovieManager.Movie2Actor.Storage.Movie2Actor>().Where(o => o.id == doubanId).ToList();
+                var tmp = session.Query<Fish.MovieManager.Movie2Actor.Storage.Movie2Actor>().Where(o => o.id == doubanId).Select(o => o.doubanId).ToList();
                 foreach (var item in tmp)
                 {
-                    id.Add(item.doubanId);
+                    id.Add(item);
+                    Console.WriteLine(item);
                 }
             }
             using (var session = Fish.MovieManager.DoubanActorInfo.Storage.StorageManager.Instance.OpenSession())

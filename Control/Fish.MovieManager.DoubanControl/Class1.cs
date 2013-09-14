@@ -94,6 +94,20 @@ namespace Fish.MovieManager.DoubanControl
         }
 
         /// <summary>
+        /// 获取导演信息
+        /// </summary>
+        /// <param name="doubanID">导演的豆瓣ID</param>
+        /// <returns>ActorInfo类</returns>
+        public Fish.MovieManager.DoubanActorInfo.Storage.DoubanActorInfo GetDirectorInfo(int doubanID)
+        {
+            using (var session = Fish.MovieManager.DoubanActorInfo.Storage.StorageManager.Instance.OpenSession())
+            {
+                var tmp = session.Query<Fish.MovieManager.DoubanActorInfo.Storage.DoubanActorInfo>().Where(o => o.id == doubanID).SingleOrDefault();
+                return tmp;
+            }
+        }
+
+        /// <summary>
         /// 获取一部电影的类型信息
         /// </summary>
         /// <param name="doubanID">豆瓣ID</param>

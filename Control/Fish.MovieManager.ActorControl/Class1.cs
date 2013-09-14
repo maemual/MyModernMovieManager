@@ -46,6 +46,10 @@ namespace Fish.MovieManager.ActorControl
             return ans;
         }
 
+        /// <summary>
+        /// 根据一个演员的豆瓣ID，从豆瓣抓取信息，添加到数据库中
+        /// </summary>
+        /// <param name="id">演员的豆瓣ID</param>
         public void AddActorInfo(int id)
         {
             var actor = Fish.MovieManager.DoubanAPI.Class.Instance.GetActorInfo(id);
@@ -69,6 +73,10 @@ namespace Fish.MovieManager.ActorControl
             }
         }
 
+        /// <summary>
+        /// 添加一个电影的演员对应关系
+        /// </summary>
+        /// <param name="m2a">Movie2Actor类型</param>
         public void AddActor(Fish.MovieManager.Movie2Actor.Storage.Movie2Actor m2a)
         {
             using (var session = Fish.MovieManager.Movie2Actor.Storage.StorageManager.Instance.OpenSession())

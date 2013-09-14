@@ -23,12 +23,12 @@ namespace Fish.MovieManager.TagControl
             var ans = new List<string>();
             using (var session = Fish.MovieManager.Movie2Tag.Storage.StorageManager.Instance.OpenSession())
             {
-                var tmp = session.Query<Fish.MovieManager.Movie2Tag.Storage.Movie2Tag>().Where(o => o.id == doubanId).ToList();
+                var tmp = session.Query<Fish.MovieManager.Movie2Tag.Storage.Movie2Tag>().Where(o => o.id == doubanId).Select(o => o.tag).ToList();
                 if (tmp != null)
                 {
                     foreach (var item in tmp)
                     {
-                        ans.Add(item.tag);
+                        ans.Add(item);
                     }
                 }
             }

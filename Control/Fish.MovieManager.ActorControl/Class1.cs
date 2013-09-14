@@ -15,7 +15,7 @@ namespace Fish.MovieManager.ActorControl
 
         /// <summary>
         /// 根据豆瓣ID，获取其所有主演信息
-        /// 现在有缺陷，会返回所有信息，包括导演，需要自己根据导演ID筛选一下。
+        /// 现在有缺陷，会返回所有信息，需要自己根据导演ID筛选一下。
         /// </summary>
         /// <param name="doubanId">豆瓣ID</param>
         /// <returns>演员信息的List</returns>
@@ -25,14 +25,11 @@ namespace Fish.MovieManager.ActorControl
             var id = new List<int>();
             using (var session = Fish.MovieManager.Movie2Actor.Storage.StorageManager.Instance.OpenSession())
             {
-				var tmp = session.Query<Fish.MovieManager.Movie2Actor.Storage.Movie2Actor>().Where(o => o.id == doubanId).Select(o => o.doubanId).ToList();
-				if (tmp != null)
-				{
-					foreach (var item in tmp)
-					{
-						id.Add(item);
-					}
-				}
+                var tmp = session.Query<Fish.MovieManager.Movie2Actor.Storage.Movie2Actor>().Where(o => o.id == doubanId).Select(o => o.doubanId).ToList();
+                foreach (var item in tmp)
+                {
+                    id.Add(item);
+                }
             }
             using (var session = Fish.MovieManager.DoubanActorInfo.Storage.StorageManager.Instance.OpenSession())
             {
@@ -48,6 +45,10 @@ namespace Fish.MovieManager.ActorControl
             return ans;
         }
 
+        /// <summary>
+        /// 根据一个演员的豆瓣ID，从豆瓣抓取信息，添加到数据库中
+        /// </summary>
+        /// <param name="id">演员的豆瓣ID</param>
         public void AddActorInfo(int id)
         {
             var actor = Fish.MovieManager.DoubanAPI.Class.Instance.GetActorInfo(id);
@@ -71,6 +72,10 @@ namespace Fish.MovieManager.ActorControl
             }
         }
 
+        /// <summary>
+        /// 添加一个电影的演员对应关系
+        /// </summary>
+        /// <param name="m2a">Movie2Actor类型</param>
         public void AddActor(Fish.MovieManager.Movie2Actor.Storage.Movie2Actor m2a)
         {
             using (var session = Fish.MovieManager.Movie2Actor.Storage.StorageManager.Instance.OpenSession())

@@ -108,6 +108,9 @@ namespace Fish.MovieManager.VideoControl
         /// <param name="path">文件路径</param>
         public void ImportFile(string path)
         {
+            if (Fish.MovieManager.GetFile.Class1.Instance.isValidate(path) == false)
+                return;
+
             List<Fish.MovieManager.DoubanMovieInfo.Storage.DoubanMovieInfo> doubanMoives = new List<DoubanMovieInfo.Storage.DoubanMovieInfo>();
             using (var session = Fish.MovieManager.VideoFileInfo.Storage.StorageManager.Instance.OpenSession())
             {

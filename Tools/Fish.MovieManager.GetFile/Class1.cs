@@ -104,5 +104,13 @@ namespace Fish.MovieManager.GetFile
             }
             return res;
         }
+
+        public bool isValidate(string path)
+        {
+            var fileExtension = System.IO.Path.GetExtension(path);
+            if (extension.Contains(fileExtension))
+                return true;
+            return false;
+        }
     }
 }

@@ -445,7 +445,7 @@ namespace Fish.MovieManager.UI
 				string strfile = null;
 				Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
 				dlg.Title = "选择文件";
-				dlg.Filter = "常见视频文件 |*.avi;*.wmv;*.wmp;*.asf;*.rm;*.ram;*.rmvb;*.ra;*rp;*.smi;*.mpg;*mpeg;*.dat;*.mp4;*.ts;*.vob;*.ifo;*ac3;*.dts | Windows Media 视频 (*.avi;*.wmv;*.wmp;*.asf)|*.avi;*.wmv;*.wmp;*.asf | Real (*.rm;*.ram;*.rmvb;*.ra;*rp;*.smi)|*.rm;*.ram;*.rmvb;*.ra;*rp;*.smi | MPEG 视频 (*.mpg;*mpeg;*.dat;*.mp4;*.ts)|*.mpg;*mpeg;*.dat;*.mp4;*.ts | DVD (*.vob;*.ifo;*ac3;*.dts)|*.vob;*.ifo;*ac3;*.dts";
+				dlg.Filter = "所有文件 |*.*; | 常见视频文件 |*.avi;*.wmv;*.wmp;*.asf;*.rm;*.ram;*.rmvb;*.ra;*rp;*.smi;*.mpg;*mpeg;*.dat;*.mp4;*.ts;*.vob;*.ifo;*ac3;*.dts | Windows Media 视频 (*.avi;*.wmv;*.wmp;*.asf)|*.avi;*.wmv;*.wmp;*.asf | Real (*.rm;*.ram;*.rmvb;*.ra;*rp;*.smi)|*.rm;*.ram;*.rmvb;*.ra;*rp;*.smi | MPEG 视频 (*.mpg;*mpeg;*.dat;*.mp4;*.ts)|*.mpg;*mpeg;*.dat;*.mp4;*.ts | DVD (*.vob;*.ifo;*ac3;*.dts)|*.vob;*.ifo;*ac3;*.dts";
 				if (dlg.ShowDialog() == true)
 				{
 					strfile = dlg.FileName;
@@ -483,6 +483,23 @@ namespace Fish.MovieManager.UI
 				Fish.MovieManager.VideoControl.Class1.Instance.DeleteFile(tmp.id);
 				datagrid_Update_Fun();
 			}
+		}
+
+		//refresh
+		private void MenuItem_Refresh_Click(object sender, RoutedEventArgs e)
+		{
+			LockFun();
+			var tmp = getSelectFileInfo();
+			if (tmp != null &&　tmp.doubanId == 0)
+			{
+				MessageBoxResult confirmToCal = MessageBox.Show("确认是否已经联网？", "提示", MessageBoxButton.YesNo);
+				if (confirmToCal == MessageBoxResult.Yes)
+				{
+					Fish.MovieManager.VideoControl.Class1.Instance.RefreshInfo(tmp.id);
+					datagrid_Update_Fun();
+				}
+			}
+			UnLockFun();
 		}
 
 		//appearance

@@ -95,7 +95,7 @@
 						<MenuItem Header="4分" Click="MenuItem_Score4"/>
 						<MenuItem Header="5分" Click="MenuItem_Score5"/>
 					</MenuItem>
-					<MenuItem Header = "刷新信息"	Click="MenuItem_Refesh_Click"/>
+					<MenuItem Header = "刷新信息"	Click="MenuItem_Refresh_Click"/>
 					<MenuItem Header = "添加文件"	Click="MenuItem_Add_Click"/>
 					<MenuItem Header = "添加文件夹" Click="MenuItem_AddFile_Click"/>
 					<MenuItem Header = "删除该电影" Click="MenuItem_Del_Click"/>

@@ -95,6 +95,7 @@
 						<MenuItem Header="4分" Click="MenuItem_Score4"/>
 						<MenuItem Header="5分" Click="MenuItem_Score5"/>
 					</MenuItem>
+					<MenuItem Header = "刷新信息"	Click="MenuItem_Refresh_Click"/>
 					<MenuItem Header = "添加文件"	Click="MenuItem_Add_Click"/>
 					<MenuItem Header = "添加文件夹" Click="MenuItem_AddFile_Click"/>
 					<MenuItem Header = "删除该电影" Click="MenuItem_Del_Click"/>
@@ -610,7 +611,7 @@
 				<TextBlock Text="授权协议：" Grid.Row="7" Grid.Column="1" FontSize="14px" 
 				   HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="White"></TextBlock>
 				<RichTextBox Name="Agreement" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2"   
-							 Foreground="White" Background="Transparent" ></RichTextBox>
+							 Foreground="White" Background="Transparent" ScrollViewer.VerticalScrollBarVisibility="Auto"></RichTextBox>
 			</Grid>
 		</Grid>
 		<CheckBox Name="MyFlyoutCheck" Grid.Column="3" Grid.RowSpan="2" Visibility="Hidden">

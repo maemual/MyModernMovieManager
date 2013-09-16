@@ -149,13 +149,14 @@
     <Resource Include="LICENSE.txt" />
     <Resource Include="images\loading.png" />
     <Resource Include="images\blue.png" />
-    <Resource Include="images\green.PNG" />
+    <Resource Include="images\green.png" />
     <Resource Include="images\orange.png" />
     <Resource Include="images\purple.png" />
     <Resource Include="images\red.png" />
     <Resource Include="images\waiting.gif" />
     <Content Include="images\loading2.jpg" />
     <SplashScreen Include="images\BootCover.png" />
+    <Content Include="images\null.jpg" />
     <Content Include="MahApps.Metro.Resources.dll" />
   </ItemGroup>
   <ItemGroup>

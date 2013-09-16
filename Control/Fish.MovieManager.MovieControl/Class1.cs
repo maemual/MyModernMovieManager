@@ -38,6 +38,8 @@ namespace Fish.MovieManager.VideoControl
             {
                 foreach (var item in files)
                 {
+                    var qs = session.Query<Fish.MovieManager.VideoFileInfo.Storage.VideoFileInfo>().Where(o => o.path == item).SingleOrDefault();
+                    if (qs != null) continue;
                     var file = Fish.MovieManager.VideoFileInfo.Class1.Instance.GetVideoFileInfo(item);
                     file.path = item;
                     if (Fish.MovieManager.NetTest.Class1.Instance.NetTest())
@@ -109,6 +111,8 @@ namespace Fish.MovieManager.VideoControl
             List<Fish.MovieManager.DoubanMovieInfo.Storage.DoubanMovieInfo> doubanMoives = new List<DoubanMovieInfo.Storage.DoubanMovieInfo>();
             using (var session = Fish.MovieManager.VideoFileInfo.Storage.StorageManager.Instance.OpenSession())
             {
+                var qs = session.Query<Fish.MovieManager.VideoFileInfo.Storage.VideoFileInfo>().Where(o => o.path == path).SingleOrDefault();
+                if (qs != null) return;
                 session.BeginTransaction();
                 var file = Fish.MovieManager.VideoFileInfo.Class1.Instance.GetVideoFileInfo(path);
                 file.path = path;
@@ -138,6 +142,58 @@ namespace Fish.MovieManager.VideoControl
             if (Fish.MovieManager.NetTest.Class1.Instance.NetTest())
             {
                 ImportDoubanInfo(doubanMoives);
+            }
+        }
+
+        public void RefreshInfo(int id)
+        {
+            //if (id != 0) return;
+            var file = new Fish.MovieManager.VideoFileInfo.Storage.VideoFileInfo();
+            using (var session = Fish.MovieManager.VideoFileInfo.Storage.StorageManager.Instance.OpenSession())
+            {
+                file = session.Query<Fish.MovieManager.VideoFileInfo.Storage.VideoFileInfo>().Where(o => o.id == id).SingleOrDefault();
+            }
+            if (Fish.MovieManager.NetTest.Class1.Instance.NetTest())
+            {
+                var fileName = System.IO.Path.GetFileNameWithoutExtension(file.path);
+                var douban = Fish.MovieManager.DoubanAPI.Class.Instance.GetMovieInfo(fileName);
+                file.doubanId = douban.doubanId;
+                using (var session = Fish.MovieManager.DoubanMovieInfo.Storage.StorageManager.Instance.OpenSession())
+                {
+                    var tmp = session.Query<Fish.MovieManager.DoubanMovieInfo.Storage.DoubanMovieInfo>().Where(o => o.doubanId == douban.doubanId).SingleOrDefault();
+                    if (tmp == null)
+                    {
+                        session.BeginTransaction();
+                        try
+                        {
+                            session.Save(douban);
+                            session.Transaction.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            session.Transaction.Rollback();
+                            throw new Exception("wrong storage.", ex);
+                        }
+                    }
+                }
+
+                using (var session = Fish.MovieManager.VideoFileInfo.Storage.StorageManager.Instance.OpenSession())
+                {
+                    session.BeginTransaction();
+                    try
+                    {
+                        session.SaveOrUpdate(file);
+                        session.Transaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        session.Transaction.Rollback();
+                        throw new Exception("wrong storage.", ex);
+                    }
+                }
+                var doubanlist = new List<Fish.MovieManager.DoubanMovieInfo.Storage.DoubanMovieInfo>();
+                doubanlist.Add(douban);
+                ImportDoubanInfo(doubanlist);
             }
         }
 
@@ -206,6 +262,7 @@ namespace Fish.MovieManager.VideoControl
                 session.BeginTransaction();
                 var tmp = session.Query<Fish.MovieManager.VideoFileInfo.Storage.VideoFileInfo>().Where(o => o.id == id).SingleOrDefault();
                 var path = tmp.path;
+                if (tmp.md5 != null) return tmp.md5;
                 md5 = Fish.MovieManager.GetFile.Class1.Instance.GetFileMd5(path);
                 tmp.md5 = md5;
 

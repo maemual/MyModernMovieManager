@@ -150,6 +150,8 @@ namespace Fish.MovieManager.UI
 			var datalist = new List<DataListView>();
 			foreach (var tmp in filelist)
 			{
+                if (tmp.doubanId == 0)
+                    continue;
 				var douban_tmp = Fish.MovieManager.DoubanControl.Class1.Instance.GetDoubanMovieInfo(tmp.doubanId);
 				var view = new DataListView();
 				view.doubanId = douban_tmp.doubanId;

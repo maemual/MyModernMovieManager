@@ -34,19 +34,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="C1.WPF, Version=3.0.20132.341, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce, processorArchitecture=MSIL" />
-    <Reference Include="C1.WPF.4, Version=4.0.20132.341, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce, processorArchitecture=MSIL" />
-    <Reference Include="c1.wpf.c1chart3d, Version=3.0.20132.170, Culture=neutral, PublicKeyToken=f63432dd4d20448b, processorArchitecture=MSIL" />
-    <Reference Include="c1.wpf.c1report, Version=3.6.20132.54638, Culture=neutral, PublicKeyToken=594a0605db190bb9, processorArchitecture=MSIL" />
-    <Reference Include="c1.wpf.datagrid, Version=3.0.20132.341, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce, processorArchitecture=MSIL" />
-    <Reference Include="C1.WPF.DateTimeEditors, Version=3.0.20132.341, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce, processorArchitecture=MSIL" />
-    <Reference Include="c1.wpf.extended, Version=3.0.20132.341, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce, processorArchitecture=MSIL" />
-    <Reference Include="c1.wpf.extended.4, Version=4.0.20132.341, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce, processorArchitecture=MSIL" />
-    <Reference Include="c1.wpf.maps, Version=3.0.20132.341, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce, processorArchitecture=MSIL" />
-    <Reference Include="C1.WPF.MediaPlayer, Version=3.0.20132.341, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce, processorArchitecture=MSIL" />
-    <Reference Include="C1.WPF.MediaPlayer.4, Version=4.0.20132.341, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce, processorArchitecture=MSIL" />
-    <Reference Include="c1.wpf.richtextbox.4, Version=4.0.20132.341, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce, processorArchitecture=MSIL" />
-    <Reference Include="c1.wpf.toolbar, Version=3.0.20132.341, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce, processorArchitecture=MSIL" />
     <Reference Include="Iesi.Collections">
       <HintPath>..\..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
@@ -95,7 +82,6 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="WPFToolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

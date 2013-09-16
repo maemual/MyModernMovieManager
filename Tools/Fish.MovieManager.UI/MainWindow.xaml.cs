@@ -523,7 +523,7 @@ namespace Fish.MovieManager.UI
 		//loading text
 		public void LoadText()
 		{
-			string textFile = @"E:\\wpf\\MyModernMovieManager\\MyModernMovieManager\\LICENSE.txt";
+			string textFile = "LICENSE.txt";
 			FileStream fs;
 			if (File.Exists(textFile))
 			{

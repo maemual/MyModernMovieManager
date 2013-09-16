@@ -611,7 +611,7 @@
 				<TextBlock Text="授权协议：" Grid.Row="7" Grid.Column="1" FontSize="14px" 
 				   HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="White"></TextBlock>
 				<RichTextBox Name="Agreement" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2"   
-							 Foreground="White" Background="Transparent" ></RichTextBox>
+							 Foreground="White" Background="Transparent" ScrollViewer.VerticalScrollBarVisibility="Auto"></RichTextBox>
 			</Grid>
 		</Grid>
 		<CheckBox Name="MyFlyoutCheck" Grid.Column="3" Grid.RowSpan="2" Visibility="Hidden">

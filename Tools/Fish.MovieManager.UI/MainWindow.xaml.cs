@@ -24,6 +24,7 @@ using MahApps.Metro.Controls;
 using MahApps.Metro;
 using Microsoft.WindowsAPICodePack.Shell;
 using Fish.MovieManager.UI;
+using System.IO;
 
 namespace Fish.MovieManager.UI
 {
@@ -133,6 +134,15 @@ namespace Fish.MovieManager.UI
 			
 			//open
 			movieGrid.MouseDoubleClick += new MouseButtonEventHandler(Open_Click);
+
+			//loadtext
+			LoadText();
+
+			//about us flyout
+			this.MyFlyoutCheck.IsChecked = false;
+
+			//lock
+			this.LockFlyoutCheck.IsChecked = false;
 		}
 
 		//update
@@ -148,6 +158,14 @@ namespace Fish.MovieManager.UI
 				view.rating = douban_tmp.rating;
 				view.image = douban_tmp.image;
 				view.id = tmp.id;
+				if (tmp.userRating != -1)
+				{
+					view.userRating = tmp.userRating;
+				}
+				else
+				{
+					view.userRating = 0;
+				}
 				view.extension = tmp.extension; 
 				view.duration = tmp.duration;
 				view.path = tmp.path;
@@ -176,21 +194,6 @@ namespace Fish.MovieManager.UI
 			}
 		}
 
-		//loading in datagrid
-		//private List<VideoFileInfo.Storage.VideoFileInfo> GetData()
-		//{
-		//	//var movie = new ObservableCollection<VideoFileInfo.Storage.VideoFileInfo>();
-		//	var movie = new List<VideoFileInfo.Storage.VideoFileInfo>();
-		//	using (var session = Fish.MovieManager.VideoFileInfo.Storage.StorageManager.Instance.OpenSession())
-		//	{
-		//		var tmp = session.Query<VideoFileInfo.Storage.VideoFileInfo>().ToList();
-		//		foreach (var i in tmp)
-		//		{
-		//			movie.Add(i);
-		//		}
-		//	}
-		//	return movie;
-		//}
 		///row number
 		public void dataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
 		{
@@ -244,27 +247,22 @@ namespace Fish.MovieManager.UI
 				this.movie_ShowImage.Source = bitmap;
 				bitmap.EndInit();
 
+				var direct_tmp = Fish.MovieManager.DoubanControl.Class1.Instance.GetDirectorInfo(doubantmp.directors);
+				bitmap = new BitmapImage();
+				bitmap.BeginInit();
+				bitmap.UriSource = new Uri(direct_tmp.avatars);
+				bitmap.CacheOption = BitmapCacheOption.OnLoad;
+				this.diretorImage.Source = bitmap;
+				bitmap.EndInit();
+				this.direct_name.Text = direct_tmp.name;
+				this.direct_nameEn.Text = direct_tmp.nameEn;
+				this.direct_gender.Text = direct_tmp.gender;
+				this.direct_bornPlace.Text = direct_tmp.bornPlace;
+
 				var people = Fish.MovieManager.ActorControl.Class1.Instance.GetActorByID(doubantmp.doubanId);
 				int actorNum = 0;
 				foreach (var ptmp in people)
 				{
-					MessageBox.Show(people.Count.ToString());
-					MessageBox.Show(ptmp.id.ToString());
-					if (ptmp.id == doubantmp.directors)
-					{
-						bitmap = new BitmapImage();
-						bitmap.BeginInit();
-						bitmap.UriSource = new Uri(ptmp.avatars);
-						bitmap.CacheOption = BitmapCacheOption.OnLoad;
-						this.diretorImage.Source = bitmap;
-						bitmap.EndInit();
-						this.direct_name.Text = ptmp.name;
-						this.direct_nameEn.Text = ptmp.nameEn;
-						this.direct_gender.Text = ptmp.gender;
-						this.direct_bornPlace.Text = ptmp.bornPlace;
-					}
-					else 
-					{
 						actorNum++;
 						if (actorNum == 1)
 						{
@@ -294,7 +292,7 @@ namespace Fish.MovieManager.UI
 							this.actor2_gender.Text = ptmp.gender;
 							this.actor2_bornPlace.Text = ptmp.bornPlace;
 						}
-						else
+						else if (actorNum == 3)
 						{
 							bitmap = new BitmapImage();
 							bitmap.BeginInit();
@@ -308,8 +306,21 @@ namespace Fish.MovieManager.UI
 							this.actor3_gender.Text = ptmp.gender;
 							this.actor3_bornPlace.Text = ptmp.bornPlace;
 						}
+						else 
+						{
+							bitmap = new BitmapImage();
+							bitmap.BeginInit();
+							bitmap.UriSource = new Uri(ptmp.avatars);
+							bitmap.CacheOption = BitmapCacheOption.OnLoad;
+							this.actor4Image.Source = bitmap;
+							bitmap.EndInit();
+							this.actor4Item.Header = ptmp.name;
+							this.actor4_name.Text = ptmp.name;
+							this.actor4_nameEn.Text = ptmp.nameEn;
+							this.actor4_gender.Text = ptmp.gender;
+							this.actor4_bornPlace.Text = ptmp.bornPlace;
+						}
 					}
-				}
 			}
 		}
 
@@ -362,6 +373,7 @@ namespace Fish.MovieManager.UI
 		//add
 		private void MenuItem_Add_Click(object sender, RoutedEventArgs e)
 		{
+			LockFun();
 			try
 			{
 				string strfile = null;
@@ -382,17 +394,18 @@ namespace Fish.MovieManager.UI
 			{
 				throw new Exception(ex.Message);
 			}
-
+			UnLockFun();
 		}
 		private void MenuItem_AddFile_Click(object sender, RoutedEventArgs e)
 		{
 			System.Windows.Forms.FolderBrowserDialog fbd = new System.Windows.Forms.FolderBrowserDialog();
+			LockFun();
 			if (fbd.ShowDialog().ToString() == "OK")
 			{
-				MessageBox.Show(fbd.SelectedPath.ToString());
 				Fish.MovieManager.VideoControl.Class1.Instance.ImportFiles(fbd.SelectedPath.ToString());
 				datagrid_Update_Fun();
 			}
+			UnLockFun();
 		}
 
 		//delete
@@ -478,12 +491,6 @@ namespace Fish.MovieManager.UI
 			this.window_Grid.Background = ima;
 		}
 
-		private void About_Click(object sender, RoutedEventArgs e)
-		{
-			Fish.MovieManager.UI.dialog.about_Dialog dlg = new dialog.about_Dialog();
-			dlg.Show();
-		}
-
 		//cal md5
 		private void md5_Click(object sender, RoutedEventArgs e)
 		{
@@ -491,12 +498,81 @@ namespace Fish.MovieManager.UI
 			if (confirmToCal == MessageBoxResult.Yes)
 			{
 				var filetmp = getSelectFileInfo();
+				if (filetmp == null) return;
 				string md5tmp = Fish.MovieManager.VideoControl.Class1.Instance.SetMd5(filetmp.id);
 				if (md5tmp != null)
 				{
 					this.text_md5.Text = md5tmp;
 				}
 			}
+		}
+
+		//About us
+		private void AboutUsFlyoutCheck(object sender, RoutedEventArgs e)
+		{
+			if (this.MyFlyoutCheck.IsChecked == false)
+				this.MyFlyoutCheck.IsChecked = true;
+			else
+				this.MyFlyoutCheck.IsChecked = false;
+		}
+		private void hyperlink_github_Click(object sender, RoutedEventArgs e)
+		{
+			System.Diagnostics.Process.Start("https://github.com/maemual/MyModernMovieManager/");
+		}
+
+		//loading text
+		public void LoadText()
+		{
+			string textFile = @"E:\\wpf\\MyModernMovieManager\\MyModernMovieManager\\LICENSE.txt";
+			FileStream fs;
+			if (File.Exists(textFile))
+			{
+				fs = new FileStream(textFile, FileMode.Open, FileAccess.Read);
+				using (fs)
+				{
+					TextRange text = new TextRange(Agreement.Document.ContentStart, Agreement.Document.ContentEnd);
+					text.Load(fs, DataFormats.Text);
+				}
+			}
+		}
+
+		//Score
+		private void ScoreMovie(int score)
+		{
+			var tmp = getSelectFileInfo();
+			Fish.MovieManager.VideoControl.Class1.Instance.SetUserStar(tmp.id, score);
+			datagrid_Update_Fun();
+			
+		}
+		private void MenuItem_Score1(object sender, RoutedEventArgs e)
+		{
+			ScoreMovie(1);
+		}
+		private void MenuItem_Score2(object sender, RoutedEventArgs e)
+		{
+			ScoreMovie(2);
+		}
+		private void MenuItem_Score3(object sender, RoutedEventArgs e)
+		{
+			ScoreMovie(3);
+		}
+		private void MenuItem_Score4(object sender, RoutedEventArgs e)
+		{
+			ScoreMovie(4);
+		}
+		private void MenuItem_Score5(object sender, RoutedEventArgs e)
+		{
+			ScoreMovie(5);
+		}
+
+		//lock
+		private void LockFun()
+		{
+			this.LockFlyoutCheck.IsChecked = true;
+		}
+		private void UnLockFun()
+		{
+			this.LockFlyoutCheck.IsChecked = false;
 		}
 	}
 }

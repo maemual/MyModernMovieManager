@@ -13,11 +13,13 @@ namespace Fish.MovieManager.Test
     {
         static void Main(string[] args)
         {
-            var tmp = Fish.MovieManager.TagControl.Class1.Instance.GetMovieByTag("剧情");
-            foreach (var item in tmp)
-            {
-                Console.WriteLine(item.doubanId);
-            }
+            var tmp = Fish.MovieManager.DoubanControl.Class1.Instance.GetDirectorInfo(1012521);
+            Console.WriteLine(tmp.name);
+            //var tmp = Fish.MovieManager.TagControl.Class1.Instance.GetMovieByTag("剧情");
+            //foreach (var item in tmp)
+            //{
+            //    Console.WriteLine(item.doubanId);
+            //}
             //var tmp = Fish.MovieManager.ActorControl.Class1.Instance.GetActorByID(1292000);
             //foreach (var item in tmp)
             //{

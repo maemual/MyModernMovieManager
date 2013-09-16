@@ -7,12 +7,14 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <Storyboard x:Key="waiting" Name="waiting">
-            <DoubleAnimation Storyboard.TargetName="SpinnerRotate" Storyboard.TargetProperty="(RotateTransform.Angle)" From="0" To="359" Duration="0:0:02" RepeatBehavior="Forever" />
+            <DoubleAnimation Storyboard.TargetName="SpinnerRotate" 
+							 Storyboard.TargetProperty="(RotateTransform.Angle)" From="0" To="359" 
+							 Duration="0:0:02" RepeatBehavior="Forever" />
         </Storyboard>
     </UserControl.Resources>
-    <Image Name="image" Source="/images/loading.png" RenderTransformOrigin="0.5,0.5" Stretch="None" Loaded="Image_Loaded_1">
+	<Image Name="image" Source="/images/loading.png" RenderTransformOrigin="0.5,0.5" Stretch="None" Loaded="Image_Loaded_1">
         <Image.RenderTransform>
             <RotateTransform x:Name="SpinnerRotate" Angle="0" />
         </Image.RenderTransform>
-    </Image>
+	</Image>
 </UserControl>

@@ -108,14 +108,6 @@
     <Compile Include="WaitingProgress.xaml.cs">
       <DependentUpon>WaitingProgress.xaml</DependentUpon>
     </Compile>
-    <Page Include="dialog\about_Dialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="dialog\actorInfo_Dialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -123,12 +115,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="dialog\about_Dialog.xaml.cs">
-      <DependentUpon>about_Dialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="dialog\actorInfo_Dialog.xaml.cs">
-      <DependentUpon>actorInfo_Dialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -180,12 +166,16 @@
     <Resource Include="icon.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="LICENSE.txt" />
     <Resource Include="images\loading.png" />
     <Resource Include="images\blue.png" />
     <Resource Include="images\green.PNG" />
     <Resource Include="images\orange.png" />
     <Resource Include="images\purple.png" />
     <Resource Include="images\red.png" />
+    <Resource Include="images\waiting.gif" />
+    <Content Include="images\loading2.jpg" />
+    <SplashScreen Include="images\BootCover.png" />
     <Content Include="MahApps.Metro.Resources.dll" />
   </ItemGroup>
   <ItemGroup>

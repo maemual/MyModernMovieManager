@@ -39,12 +39,11 @@
 			</Style>
 		</ResourceDictionary>
 	</Controls:MetroWindow.Resources>
-
-
 	<Controls:MetroWindow.WindowCommands>
 		<Controls:WindowCommands>
 			<Menu  Background="Transparent" >
-				<MenuItem Header="外观设置"  Foreground="White" FontSize="13px" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center">
+				<MenuItem Header="外观设置"  Foreground="White" FontSize="13px" 
+						  Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center">
 					<MenuItem Header="模式">
 						<MenuItem Click="Light_Click" Header="白天模式" />
 						<MenuItem Click="Dark_Click" Header="夜间模式" />
@@ -58,17 +57,14 @@
 					</MenuItem>
 				</MenuItem>
 			</Menu>
-
-			<Menu  Background="Transparent" >
-				<MenuItem Header="关于我们" Margin="0,1,0,0" Foreground="White" FontSize="13px" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Center" HorizontalAlignment="Left" Click="About_Click"/>
-			</Menu>
-
+			<Button Content="关于我们" Foreground="White" FontSize="13px" 
+					Background="Transparent" BorderBrush="Transparent" 
+					VerticalAlignment="Center" HorizontalAlignment="Center" 
+					Click="AboutUsFlyoutCheck" Margin="0,2,10,10"></Button>
 		</Controls:WindowCommands>
 	</Controls:MetroWindow.WindowCommands>
 
 	<Grid Name="window_Grid">
-		<!--Controls:TextboxHelper.ButtonCommand="{Binding TextBoxButtonCmd, Mode=OneWay}"
-                 Style="{DynamicResource SearchMetroTextBox}" />-->
 		<!--定义四行 两列-->
 		<Grid.RowDefinitions>
 			<RowDefinition Height="40" />
@@ -82,27 +78,35 @@
 			<ColumnDefinition Width="287*"/>
 			<ColumnDefinition Width="108*"/>
 		</Grid.ColumnDefinitions>
-
-		<!--<GridSplitter Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" Background="LightBlue" Height="10" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="0,6" ></GridSplitter>-->
+		
 		<TextBlock x:Name="movie_manager" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="31,8,29,6" Width="80" Height="26"><Run Text="电影管理"/></TextBlock>
 		<ListBox x:Name="movieTagList" Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" Margin="10,20,10,20" FontSize="15" MouseLeftButtonUp="tagListBox_MouseButtonUp" />
 
 		<!--datagrid-->
-		<TabControl Name="movie_Tab" Grid.Column="1" HorizontalAlignment="Center" Margin="39,10" Grid.Row="1" VerticalAlignment="Center" Height="280" Width="974" Grid.ColumnSpan="3" >
+		<TabControl Name="movie_Tab" Grid.Column="1" HorizontalAlignment="Center" 
+					Margin="39,10" Grid.Row="1" VerticalAlignment="Center" 
+					Height="280" Width="974" Grid.ColumnSpan="3" >
+			<TabControl.ContextMenu>
+				<ContextMenu x:Name="cm" StaysOpen="True" >
+					<MenuItem Header = "播放"		Click="Open_Click"/>
+					<MenuItem Header = "设置评分" >
+						<MenuItem Header="1分" Click="MenuItem_Score1"/>
+						<MenuItem Header="2分" Click="MenuItem_Score2"/>
+						<MenuItem Header="3分" Click="MenuItem_Score3"/>
+						<MenuItem Header="4分" Click="MenuItem_Score4"/>
+						<MenuItem Header="5分" Click="MenuItem_Score5"/>
+					</MenuItem>
+					<MenuItem Header = "添加文件"	Click="MenuItem_Add_Click"/>
+					<MenuItem Header = "添加文件夹" Click="MenuItem_AddFile_Click"/>
+					<MenuItem Header = "删除该电影" Click="MenuItem_Del_Click"/>
+				</ContextMenu>
+			</TabControl.ContextMenu>
 			<TabItem Header="封面视图">
 				<Grid>
 					<ListBox ItemsSource="{Binding}"											
 					ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
 					Name="movieList" HorizontalAlignment="Left"
 					MouseLeftButtonUp="movieGrid_MouseLeftButtonUp">
-						<ListBox.ContextMenu>
-							<ContextMenu x:Name="cm2" StaysOpen="True" >
-								<MenuItem Header = "播放"		Click="Open_Click"/>
-								<MenuItem Header = "添加文件"	Click="MenuItem_Add_Click"/>
-								<MenuItem Header = "添加文件夹" Click="MenuItem_AddFile_Click"/>
-								<MenuItem Header = "删除该电影" Click="MenuItem_Del_Click"/>
-							</ContextMenu>
-						</ListBox.ContextMenu>
 						<ListBox.ItemTemplate>
 							<DataTemplate>
 								<Grid >
@@ -112,9 +116,10 @@
 											<RowDefinition Height="4*" />
 											<RowDefinition Height="2*" />
 										</Grid.RowDefinitions>
-										<Image Stretch="UniformToFill" Grid.Row="0" Width="120" Height="150" Margin="10,10,10,10" local:ImageDecoder.Source="{Binding image}"></Image>
-										<!--<Image Stretch="UniformToFill" Grid.Row="0" Width="120" Height="150" Margin="10,10,10,10" Source="{Binding images}"></Image>-->
-										<TextBlock Text="{Binding title}" Grid.Row="1" HorizontalAlignment="Center" ></TextBlock>
+										<Image Stretch="UniformToFill" Grid.Row="0" Width="120" Height="150" 
+											   Margin="10,10,10,10" local:ImageDecoder.Source="{Binding image}"></Image>
+										<TextBlock Text="{Binding title}" Grid.Row="1" 
+												   HorizontalAlignment="Center" ></TextBlock>
 									</Grid>
 								</Grid>
 							</DataTemplate>
@@ -129,14 +134,13 @@
 			</TabItem>
 			<TabItem Header="列表视图">
 				<DataGrid Background="Transparent" BorderBrush="Transparent" x:Name="movieGrid" Grid.Row="1" Grid.Column="1" Margin="10,10,10,10" ItemsSource="{Binding}"  AutoGenerateColumns="False" IsReadOnly="True" FontSize="16" CanUserReorderColumns="False" MouseLeftButtonUp="movieGrid_MouseLeftButtonUp" Grid.ColumnSpan="3" BorderThickness="0,0,1,0">
-
 					<DataGrid.Columns>
 						<DataGridTextColumn Header="电影名称" Binding="{Binding title}" MaxWidth="100" />
 						<DataGridTextColumn Header="时长" Binding="{Binding duration}" />
 						<DataGridTextColumn Header="格式" Binding="{Binding extension}" />
 						<DataGridTextColumn Header="豆瓣评分" Binding="{Binding rating,StringFormat='{}{0:N1}'}" />
 						<DataGridTextColumn Header="用户评分" Binding="{Binding userRating}" />
-						<DataGridTextColumn Header="文件路径" Binding="{Binding path}" MaxWidth="200"/>
+						<DataGridTextColumn Header="文件路径" Binding="{Binding path}" />
 					</DataGrid.Columns>
 
 					<DataGrid.RowHeaderStyle>
@@ -238,18 +242,11 @@
 						</Style>
 					</DataGrid.ColumnHeaderStyle>
 				</DataGrid>
-				<TabItem.ContextMenu>
-					<ContextMenu x:Name="cm" StaysOpen="True" >
-						<MenuItem Header = "播放"		Click="Open_Click"/>
-						<MenuItem Header = "添加文件" Click="MenuItem_Add_Click"/>
-						<MenuItem Header = "添加文件夹" Click="MenuItem_AddFile_Click"/>
-						<MenuItem Header = "删除该电影" Click="MenuItem_Del_Click"/>
-					</ContextMenu>
-				</TabItem.ContextMenu>
 			</TabItem>
 		</TabControl>
 
-		<TabControl Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,10" Grid.Row="3" Width="770" Grid.ColumnSpan="2" >
+		<TabControl Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,10" 
+					Grid.Row="3" Width="770" Grid.ColumnSpan="2" >
 			<TabItem Header="豆瓣信息">
 				<!--movi information-->
 				<Grid x:Name="MovieGridInfo" Grid.Column="1" Grid.Row="3" Margin="0,0,10,5">
@@ -288,7 +285,8 @@
 					<TextBlock Grid.Row="6" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"><Run Text="评分人数：" FontSize="16px"/></TextBlock>
 					<TextBlock Grid.Row="8" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"><Run Text="豆瓣小站：" FontSize="16px"/></TextBlock>
 
-					<Button x:Name="moviederectors"  Content="了解影人" Grid.Row="10" Grid.Column="2" FontSize="12px" MaxHeight="30px" MaxWidth="80px">
+					<Button x:Name="moviederectors"  Content="了解影人" Grid.Row="10" Grid.Column="2" 
+							FontSize="12px" MaxHeight="30px" MaxWidth="80px">
 						<Button.Triggers>
 							<EventTrigger RoutedEvent="Button.Click">
 								<BeginStoryboard>
@@ -296,9 +294,11 @@
 										<ColorAnimation Storyboard.TargetName="Flyout_Left" 
 												Storyboard.TargetProperty="Background.Color"  To="#333333" />
 										<DoubleAnimation Storyboard.TargetName="Flyout_Left" 
-												 Storyboard.TargetProperty="Height" Duration="0:0:0.01" To="1500" />
+														Storyboard.TargetProperty="Height" 
+														Duration="0:0:0.01" To="1500" />
 										<DoubleAnimation Storyboard.TargetName="Flyout_Right" 
-														 Storyboard.TargetProperty="Width" Duration="0:0:0.3" To="400" />
+														 Storyboard.TargetProperty="Width" 
+														 Duration="0:0:0.3" To="400" />
 									</Storyboard>
 								</BeginStoryboard>
 							</EventTrigger>
@@ -376,14 +376,16 @@
 			</TabItem>
 		</TabControl>
 
-		<Image Name="movie_ShowImage" Grid.Column="1" Grid.Row="3" Margin="20,20,20,20" Source="pack://application:,,,/images/loading.png" />
+		<Image Name="movie_ShowImage" Grid.Column="1" Grid.Row="3" Margin="20,20,20,20" Source="pack://application:,,,/images/loading2.png" />
 
-		<Grid x:Name="movie_Flyout" Width="1500" Height="800" Grid.ColumnSpan="4" Grid.Row="0" Grid.RowSpan="4"  VerticalAlignment="Top"  HorizontalAlignment="Right" >
+		<Grid x:Name="movie_Flyout" Width="1500" Height="800" Grid.ColumnSpan="4" 
+			  Grid.Row="0" Grid.RowSpan="4"  VerticalAlignment="Top"  HorizontalAlignment="Right" >
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="80*"/>
 				<ColumnDefinition Width="400"/>
 			</Grid.ColumnDefinitions>
-			<Grid Opacity="0.3" Background="#333333" x:Name="Flyout_Left" Height="1000px" Width="1000px" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+			<Grid Opacity="0.3" Background="#333333" x:Name="Flyout_Left" 
+				  Height="0" Width="1000px" HorizontalAlignment="Right" VerticalAlignment="Bottom">
 				<Grid.Triggers>
 					<EventTrigger RoutedEvent="Mouse.MouseDown">
 						<BeginStoryboard>
@@ -399,7 +401,8 @@
 					</EventTrigger>
 				</Grid.Triggers>
 			</Grid>
-			<Grid x:Name="Flyout_Right" HorizontalAlignment="Right" Background="#333333" Grid.Row="0" Grid.Column="1" Height="1000px" Width="1500px">
+			<Grid x:Name="Flyout_Right" Opacity="0.9" HorizontalAlignment="Right" Background="#333333" 
+				  Grid.Row="0" Grid.Column="1" Height="1000px" Width="0">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="10*"/>
 					<RowDefinition Height="50*"/>
@@ -414,7 +417,8 @@
 				</Grid.ColumnDefinitions>
 				<Label Content="导演信息" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" Height="40"  VerticalAlignment="Center" Width="85" FontSize="18px" Foreground="White" />
 				<Label Content="主演信息" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" Height="40"  VerticalAlignment="Center" Width="85" FontSize="18px" Foreground="White" />
-				<Grid Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Height="250" Width="350" HorizontalAlignment="Center" VerticalAlignment="Top">
+				<Grid Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" 
+					  Height="250" Width="350" HorizontalAlignment="Center" VerticalAlignment="Top">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="30*"/>
 						<ColumnDefinition Width="25*"/>
@@ -520,10 +524,170 @@
 							<TextBlock Grid.Column="2" Grid.Row="4" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13px" x:Name="actor3_bornPlace"></TextBlock>
 						</Grid>
 					</TabItem>
+					<TabItem Name="actor4Item" Header="主演4">
+						<Grid Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Height="250" Width="350" 
+							  HorizontalAlignment="Center" VerticalAlignment="Top">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="30*"/>
+								<ColumnDefinition Width="25*"/>
+								<ColumnDefinition Width="45*"/>
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="5*"/>
+								<RowDefinition Height="10*"/>
+								<RowDefinition Height="10*"/>
+								<RowDefinition Height="10*"/>
+								<RowDefinition Height="10*"/>
+								<RowDefinition Height="5*"/>
+							</Grid.RowDefinitions>
+							<Image Name="actor4Image" Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							<TextBlock Text="中文名:" Grid.Column="1" Grid.Row="1" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16px"></TextBlock>
+							<TextBlock Text="英文名:" Grid.Column="1" Grid.Row="2" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16px"></TextBlock>
+							<TextBlock Text="性别:" Grid.Column="1" Grid.Row="3" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16px"></TextBlock>
+							<TextBlock Text="出生地:" Grid.Column="1" Grid.Row="4" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16px"></TextBlock>
+							<TextBlock Grid.Column="2" Grid.Row="1" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13px" x:Name="actor4_name"></TextBlock>
+							<TextBlock Grid.Column="2" Grid.Row="2" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13px" x:Name="actor4_nameEn"></TextBlock>
+							<TextBlock Grid.Column="2" Grid.Row="3" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13px" x:Name="actor4_gender"></TextBlock>
+							<TextBlock Grid.Column="2" Grid.Row="4" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13px" x:Name="actor4_bornPlace"></TextBlock>
+						</Grid>
+					</TabItem>
 				</TabControl>
-
-
 			</Grid>
 		</Grid>
+
+		<Grid x:Name="Aboutmovie_Flyout" Width="1500" Height="1000" Grid.ColumnSpan="4" 
+			  Grid.Row="0" Grid.RowSpan="4"  VerticalAlignment="Top"  HorizontalAlignment="Right" >
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="80*"/>
+				<ColumnDefinition Width="600"/>
+			</Grid.ColumnDefinitions>
+			<Grid Opacity="0.3" Background="#333333" x:Name="AboutFlyout_Left" 
+				  Height="0" Width="1000px" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+				  MouseLeftButtonDown="AboutUsFlyoutCheck">
+			</Grid>
+			<Grid  x:Name="AboutFlyout_Right" Opacity="0.95" HorizontalAlignment="Right" Background="#333333" 
+					Grid.Row="0" Grid.Column="1" Height="1000" Width="0">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="10*"/>
+					<RowDefinition Height="20*"/>
+					<RowDefinition Height="20*"/>
+					<RowDefinition Height="20*"/>
+					<RowDefinition Height="20*"/>
+					<RowDefinition Height="20*"/>
+					<RowDefinition Height="20*"/>
+					<RowDefinition Height="20*"/>
+					<RowDefinition Height="100*"/>
+					<RowDefinition Height="150*"/>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="65*"/>
+					<ColumnDefinition Width="30*"/>
+					<ColumnDefinition Width="130*"/>
+					<ColumnDefinition Width="5*"/>
+				</Grid.ColumnDefinitions>
+				<TextBlock Text="软件名称：" Grid.Row="1" Grid.Column="1" FontSize="16px" 
+				   HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"></TextBlock>
+				<TextBlock Text="MyModernMovieManager" Grid.Row="1" Grid.Column="2" FontSize="14px" 
+				   HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="White"></TextBlock>
+				<TextBlock Text="版本号：" Grid.Row="2" Grid.Column="1" FontSize="16px" 
+				   HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="White"></TextBlock>
+				<TextBlock Text="v0.9 Alpha" Grid.Row="2" Grid.Column="2" FontSize="14px" 
+				   HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="White"></TextBlock>
+				<TextBlock Text="项目主页：" Grid.Row="3" Grid.Column="1" FontSize="16px" 
+				   HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="White"></TextBlock>
+				<TextBlock Grid.Row="3" Grid.Column="2" FontSize="14px" 
+						 HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="White" 
+						 Background="Transparent">
+					<Hyperlink Name="hyperlink_github" Click="hyperlink_github_Click" NavigateUri="https://github.com/maemual/MyModernMovieManager" >https://github.com/maemual/MyModernMovieManager</Hyperlink>
+				</TextBlock>
+				<TextBlock Text="鸣谢：" Grid.Row="4" Grid.Column="1" FontSize="16px" 
+				   HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="White"></TextBlock>
+				<TextBlock Text="开发人员 : 江以臣（maemual)" Grid.Row="4" Grid.Column="2" FontSize="14px" 
+				   HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="White"></TextBlock>
+				<TextBlock Text="				               黄海坤 （withwind）" Grid.Row="5" Grid.Column="2" FontSize="14px" 
+				   HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="White"></TextBlock>
+				<TextBlock Text="指导老师 : 叶庆生                  " Grid.Row="6" Grid.Column="2" FontSize="14px" 
+				   HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="White"></TextBlock>
+				<TextBlock Text="授权协议：" Grid.Row="7" Grid.Column="1" FontSize="14px" 
+				   HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="White"></TextBlock>
+				<RichTextBox Name="Agreement" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2"   
+							 Foreground="White" Background="Transparent" ></RichTextBox>
+			</Grid>
+		</Grid>
+		<CheckBox Name="MyFlyoutCheck" Grid.Column="3" Grid.RowSpan="2" Visibility="Hidden">
+			<CheckBox.Triggers>
+				<!-- On checked, expand flyout -->
+				<EventTrigger RoutedEvent="CheckBox.Checked">
+					<BeginStoryboard>
+						<Storyboard>
+							<ColorAnimation Storyboard.TargetName="AboutFlyout_Left" 
+												Storyboard.TargetProperty="Background.Color"  To="#333333" />
+							<DoubleAnimation Storyboard.TargetName="AboutFlyout_Left" 
+														Storyboard.TargetProperty="Height" 
+														Duration="0:0:0.01" To="1000" />
+							<DoubleAnimation Storyboard.TargetName="AboutFlyout_Right" 
+														 Storyboard.TargetProperty="Width" 
+														 Duration="0:0:0.3" To="800" />
+						</Storyboard>
+					</BeginStoryboard>
+				</EventTrigger>
+
+				<!-- On unchecked, hide flyout -->
+				<EventTrigger RoutedEvent="CheckBox.Unchecked">
+					<BeginStoryboard>
+						<Storyboard>
+							<ColorAnimation Storyboard.TargetName="AboutFlyout_Left" 
+												Storyboard.TargetProperty="Background.Color"  To="Transparent" />
+							<DoubleAnimation Storyboard.TargetName="AboutFlyout_Left" 
+														Storyboard.TargetProperty="Height" 
+														Duration="0:0:0.01" To="0" />
+							<DoubleAnimation Storyboard.TargetName="AboutFlyout_Right" 
+														 Storyboard.TargetProperty="Width" 
+														 Duration="0:0:0.3" To="0" />
+						</Storyboard>
+					</BeginStoryboard>
+				</EventTrigger>
+			</CheckBox.Triggers>
+		</CheckBox>
+
+		<!--Lock-->
+		<Grid Name="LockGrid" Height="0" Grid.ColumnSpan="100" Grid.RowSpan="100" Background="#333333" Opacity="0.7">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="50*"/>
+				<RowDefinition Height="30*"/>
+				<RowDefinition Height="150*"/>
+			</Grid.RowDefinitions>
+			<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Width="140" Text="Loading..." 
+					   Foreground="White" FontSize="30px"></TextBlock>
+		</Grid>
+		<CheckBox Name="LockFlyoutCheck" Visibility="Hidden">
+			<CheckBox.Triggers>
+				<!-- On checked, expand flyout -->
+				<EventTrigger RoutedEvent="CheckBox.Checked">
+					<BeginStoryboard>
+						<Storyboard>
+							<ColorAnimation Storyboard.TargetName="LockGrid" 
+												Storyboard.TargetProperty="Background.Color"  To="#333333" />
+							<DoubleAnimation Storyboard.TargetName="LockGrid" 
+														Storyboard.TargetProperty="Height" 
+														Duration="0:0:0.5" To="1000" />
+						</Storyboard>
+					</BeginStoryboard>
+				</EventTrigger>
+
+				<!-- On unchecked, hide flyout -->
+				<EventTrigger RoutedEvent="CheckBox.Unchecked">
+					<BeginStoryboard>
+						<Storyboard>
+							<ColorAnimation Storyboard.TargetName="LockGrid" 
+												Storyboard.TargetProperty="Background.Color"  To="Transparent" />
+							<DoubleAnimation Storyboard.TargetName="LockGrid" 
+														Storyboard.TargetProperty="Height" 
+														Duration="0:0:0.5" To="0" />
+						</Storyboard>
+					</BeginStoryboard>
+				</EventTrigger>
+			</CheckBox.Triggers>
+		</CheckBox>
 	</Grid>
 </Controls:MetroWindow>

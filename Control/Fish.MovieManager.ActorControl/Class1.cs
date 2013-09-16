@@ -15,7 +15,6 @@ namespace Fish.MovieManager.ActorControl
 
         /// <summary>
         /// 根据豆瓣ID，获取其所有主演信息
-        /// 现在有缺陷，会返回所有信息，包括导演，需要自己根据导演ID筛选一下。
         /// </summary>
         /// <param name="doubanId">豆瓣ID</param>
         /// <returns>演员信息的List</returns>

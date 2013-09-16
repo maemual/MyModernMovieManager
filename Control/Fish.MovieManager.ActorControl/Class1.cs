@@ -28,7 +28,6 @@ namespace Fish.MovieManager.ActorControl
                 foreach (var item in tmp)
                 {
                     id.Add(item);
-                    Console.WriteLine(item);
                 }
             }
             using (var session = Fish.MovieManager.DoubanActorInfo.Storage.StorageManager.Instance.OpenSession())

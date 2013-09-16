@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D1BE4663-5E52-4885-8B59-07A226011055}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Fish.MovieManager.UI</RootNamespace>
+    <AssemblyName>Fish.MovieManager.UI</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro, Version=0.0.0.999, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\MahApps.Metro.0.10.1.1\lib\net45\MahApps.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro.Resources, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\test\MahApps.Metro.Resources.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="NHibernate">
+      <HintPath>..\..\packages\NHibernate.3.3.3.4001\lib\Net35\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="ReachFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Activities" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activities" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MahApps.Metro.0.10.1.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="coverView\ImageDecoder.cs" />
+    <Compile Include="coverView\ImageQueue.cs" />
+    <Compile Include="coverView\MainViewModel.cs" />
+    <Compile Include="WaitingProgress.xaml.cs">
+      <DependentUpon>WaitingProgress.xaml</DependentUpon>
+    </Compile>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Resources\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WaitingProgress.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+    <Resource Include="Resources\Entypo.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Entypo-license.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="LICENSE.txt" />
+    <Resource Include="images\loading.png" />
+    <Resource Include="images\blue.png" />
+    <Resource Include="images\green.PNG" />
+    <Resource Include="images\orange.png" />
+    <Resource Include="images\purple.png" />
+    <Resource Include="images\red.png" />
+    <Resource Include="images\waiting.gif" />
+    <Content Include="images\loading2.jpg" />
+    <SplashScreen Include="images\BootCover.png" />
+    <Content Include="MahApps.Metro.Resources.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Control\Fish.MovieManager.ActorControl\Fish.MovieManager.ActorControl.csproj">
+      <Project>{c40b50f9-c77f-49f1-a4e0-672e2e26349c}</Project>
+      <Name>Fish.MovieManager.ActorControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Control\Fish.MovieManager.DoubanControl\Fish.MovieManager.DoubanControl.csproj">
+      <Project>{dbcc3f68-7320-4e1c-812d-a7a7b86550cb}</Project>
+      <Name>Fish.MovieManager.DoubanControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Control\Fish.MovieManager.MovieControl\Fish.MovieManager.VideoControl.csproj">
+      <Project>{6a2e339a-b787-425f-90cc-2298d393c6ef}</Project>
+      <Name>Fish.MovieManager.VideoControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Control\Fish.MovieManager.TagControl\Fish.MovieManager.TagControl.csproj">
+      <Project>{b2071588-f11e-4f86-bfc4-00d281eb8364}</Project>
+      <Name>Fish.MovieManager.TagControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\Fish.MovieManager.DoubanActorInfo\Fish.MovieManager.DoubanActorInfo.csproj">
+      <Project>{b589d12f-7ea5-4300-89c9-ae9db02d44cb}</Project>
+      <Name>Fish.MovieManager.DoubanActorInfo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\Fish.MovieManager.DoubanMovieInfo\Fish.MovieManager.DoubanMovieInfo.csproj">
+      <Project>{94851e53-7cb0-47e1-98f2-920c0279f1bd}</Project>
+      <Name>Fish.MovieManager.DoubanMovieInfo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\Fish.MovieManager.Movie2Actor\Fish.MovieManager.Movie2Actor.csproj">
+      <Project>{b23fb277-4f2d-4588-9ad7-7e478cea3cf7}</Project>
+      <Name>Fish.MovieManager.Movie2Actor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\Fish.MovieManager.Movie2Tag\Fish.MovieManager.Movie2Tag.csproj">
+      <Project>{3f0d6d44-af99-4c90-af2f-dc9996055eb0}</Project>
+      <Name>Fish.MovieManager.Movie2Tag</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\Fish.MovieManager.VideoFileInfo\Fish.MovieManager.VideoFileInfo.csproj">
+      <Project>{48653991-5148-48a5-8fe6-9bd8375242ad}</Project>
+      <Name>Fish.MovieManager.VideoFileInfo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fish.MovieManager.GetFile\Fish.MovieManager.GetFile.csproj">
+      <Project>{715d4cae-5802-4e6d-b951-582b56a47328}</Project>
+      <Name>Fish.MovieManager.GetFile</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

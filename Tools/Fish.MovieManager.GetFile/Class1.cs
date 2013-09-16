@@ -10,9 +10,20 @@ namespace Fish.MovieManager.GetFile
 {
     public class Class1
     {
-        private static Class1 _instance = new Class1();
+        private static Class1 _instance;
+        public static Class1 Instance 
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new Class1();
+                }
+                return _instance; 
+            } 
+        }
+
         private static List<string> extension = new List<string> { ".mkv", ".rmvb", ".mov", ".avi", ".mp4", ".3gp", ".mpg", ".mpeg", ".wmv", ".flv", ".swf", ".ogg"};
-        public static Class1 Instance { get { return _instance; } }
 
         /// <summary>
         /// 根据URL下载文件到指定path下

@@ -10,8 +10,18 @@ namespace Fish.MovieManager.TagControl
 {
     public class Class1
     {
-        private static Class1 _instance = new Class1();
-        public static Class1 Instance { get { return _instance; } }
+        private static Class1 _instance;
+        public static Class1 Instance 
+        { 
+            get 
+            {
+                if (_instance == null)
+                {
+                    _instance = new Class1();
+                }
+                return _instance; 
+            } 
+        }
 
         /// <summary>
         /// 获取一部电影的标签

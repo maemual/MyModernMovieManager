@@ -16,7 +16,6 @@
 		xmlns:local="clr-namespace:Fish.MovieManager.UI"
 		x:Class="Fish.MovieManager.UI.MainWindow"	
 		
-	
         Height="700" Width="1200" WindowStartupLocation="CenterScreen"
 		ShowTitleBar="True" Title="电影管理" 
 		ShowIconOnTitleBar="True" Icon="pack://application:,,,/icon.PNG" 
@@ -96,6 +95,7 @@
 						<MenuItem Header="4分" Click="MenuItem_Score4"/>
 						<MenuItem Header="5分" Click="MenuItem_Score5"/>
 					</MenuItem>
+					<MenuItem Header = "刷新信息"	Click="MenuItem_Refesh_Click"/>
 					<MenuItem Header = "添加文件"	Click="MenuItem_Add_Click"/>
 					<MenuItem Header = "添加文件夹" Click="MenuItem_AddFile_Click"/>
 					<MenuItem Header = "删除该电影" Click="MenuItem_Del_Click"/>
@@ -376,7 +376,7 @@
 			</TabItem>
 		</TabControl>
 
-		<Image Name="movie_ShowImage" Grid.Column="1" Grid.Row="3" Margin="20,20,20,20" Source="pack://application:,,,/images/loading2.png" />
+		<Image Name="movie_ShowImage" Grid.Column="1" Grid.Row="3" Margin="20,20,20,20" Source="pack://application:,,,/images/loading2.jpg" />
 
 		<Grid x:Name="movie_Flyout" Width="1500" Height="800" Grid.ColumnSpan="4" 
 			  Grid.Row="0" Grid.RowSpan="4"  VerticalAlignment="Top"  HorizontalAlignment="Right" >

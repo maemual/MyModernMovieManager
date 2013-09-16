@@ -10,12 +10,19 @@ namespace Fish.MovieManager.ActorControl
 {
     public class Class1
     {
-        private static Class1 _instance = new Class1();
-        public static Class1 Instance { get { return _instance; } }
+        private static Class1 _instance;
+        public static Class1 Instance { 
+            get {
+                if (_instance == null)
+                {
+                    _instance = new Class1();
+                }
+                return _instance; 
+            } 
+        }
 
         /// <summary>
         /// 根据豆瓣ID，获取其所有主演信息
-        /// 现在有缺陷，会返回所有信息，需要自己根据导演ID筛选一下。
         /// </summary>
         /// <param name="doubanId">豆瓣ID</param>
         /// <returns>演员信息的List</returns>

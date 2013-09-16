@@ -13,8 +13,18 @@ namespace Fish.MovieManager.DoubanAPI
 {
     public class Class
     {
-        private static Class _instance = new Class();
-        public static Class Instance { get { return _instance; } }
+        private static Class _instance;
+        public static Class Instance 
+        { 
+            get 
+            {
+                if (_instance == null)
+                {
+                    _instance = new Class();
+                }
+                return _instance; 
+            } 
+        }
 
         /// <summary>
         /// 根据关键词从豆瓣上搜索结果

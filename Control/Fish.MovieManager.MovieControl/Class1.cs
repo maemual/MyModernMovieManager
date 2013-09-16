@@ -12,8 +12,18 @@ namespace Fish.MovieManager.VideoControl
 {
     public class Class1
     {
-        private static Class1 _instance = new Class1();
-        public static Class1 Instance { get { return _instance; } }
+        private static Class1 _instance;
+        public static Class1 Instance 
+        { 
+            get 
+            {
+                if (_instance == null)
+                {
+                    _instance = new Class1();
+                }
+                return _instance; 
+            } 
+        }
 
         /// <summary>
         /// 导入路径下所有文件的信息
@@ -30,10 +40,13 @@ namespace Fish.MovieManager.VideoControl
                 {
                     var file = Fish.MovieManager.VideoFileInfo.Class1.Instance.GetVideoFileInfo(item);
                     file.path = item;
-                    var fileName = System.IO.Path.GetFileName(file.path);
-                    var movie = Fish.MovieManager.DoubanAPI.Class.Instance.GetMovieInfo(fileName);
-                    doubanMoives.Add(movie);
-                    file.doubanId = movie.doubanId;
+                    if (Fish.MovieManager.NetTest.Class1.Instance.NetTest())
+                    {
+                        var fileName = System.IO.Path.GetFileName(file.path);
+                        var movie = Fish.MovieManager.DoubanAPI.Class.Instance.GetMovieInfo(fileName);
+                        doubanMoives.Add(movie);
+                        file.doubanId = movie.doubanId;
+                    }
                     try
                     {
                         session.BeginTransaction();
@@ -99,11 +112,14 @@ namespace Fish.MovieManager.VideoControl
                 session.BeginTransaction();
                 var file = Fish.MovieManager.VideoFileInfo.Class1.Instance.GetVideoFileInfo(path);
                 file.path = path;
-                var fileName = System.IO.Path.GetFileName(file.path);
-				
-                var movie = Fish.MovieManager.DoubanAPI.Class.Instance.GetMovieInfo(fileName);
-                doubanMoives.Add(movie);
-                file.doubanId = movie.doubanId;
+                if (Fish.MovieManager.NetTest.Class1.Instance.NetTest())
+                {
+                    var fileName = System.IO.Path.GetFileName(file.path);
+
+                    var movie = Fish.MovieManager.DoubanAPI.Class.Instance.GetMovieInfo(fileName);
+                    doubanMoives.Add(movie);
+                    file.doubanId = movie.doubanId;
+                }
                 try
                 {
                     var tmp = session.Query<VideoFileInfo.Storage.VideoFileInfo>().Where(o => o.path == path).SingleOrDefault();

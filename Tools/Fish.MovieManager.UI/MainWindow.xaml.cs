@@ -22,7 +22,6 @@ using NHibernate.Linq;
 using MahApps;
 using MahApps.Metro.Controls;
 using MahApps.Metro;
-using Microsoft.WindowsAPICodePack.Shell;
 using Fish.MovieManager.UI;
 using System.IO;
 
@@ -151,8 +150,27 @@ namespace Fish.MovieManager.UI
 			var datalist = new List<DataListView>();
 			foreach (var tmp in filelist)
 			{
-				var douban_tmp = Fish.MovieManager.DoubanControl.Class1.Instance.GetDoubanMovieInfo(tmp.doubanId);
 				var view = new DataListView();
+				if (tmp.doubanId == 0)
+				{
+					view.title = System.IO.Path.GetFileNameWithoutExtension(tmp.path);
+					view.image = "";
+					view.extension = tmp.extension;
+					view.id = tmp.id;
+					view.duration = tmp.duration;
+					view.path = tmp.path;
+					if (tmp.userRating != -1)
+					{
+						view.userRating = tmp.userRating;
+					}
+					else
+					{
+						view.userRating = 0;
+					}
+					datalist.Add(view);
+					continue;
+				}
+				var douban_tmp = Fish.MovieManager.DoubanControl.Class1.Instance.GetDoubanMovieInfo(tmp.doubanId);
 				view.doubanId = douban_tmp.doubanId;
 				view.title = douban_tmp.title;
 				view.rating = douban_tmp.rating;
@@ -320,7 +338,55 @@ namespace Fish.MovieManager.UI
 							this.actor4_gender.Text = ptmp.gender;
 							this.actor4_bornPlace.Text = ptmp.bornPlace;
 						}
-					}
+				}
+			}
+			else if(filetmp != null && filetmp.doubanId == 0)
+			{
+				this.text_title.Text = System.IO.Path.GetFileNameWithoutExtension(filetmp.path);
+				this.text_originalTitle.Text = "";
+				this.text_aka.Text = "";
+				this.text_tag.Text = "";
+				this.text_year.Text = "";
+				this.text_countries.Text = "";
+				this.text_directors.Text = "";
+				this.text_actors.Text = "";
+				this.text_rating.Text = "";
+				this.text_ratingCount.Text = "";
+				this.text_doubanSite.Text = "";
+				this.text_summary.Text = "";
+				
+				this.movie_ShowImage.Source = new BitmapImage(new Uri("/images/null.png", UriKind.Relative));
+
+				this.diretorImage.Source = new BitmapImage(new Uri("", UriKind.Relative)); ;
+				this.direct_name.Text = "";
+				this.direct_nameEn.Text = "";
+				this.direct_gender.Text = "";
+				this.direct_bornPlace.Text = "";
+
+				this.actor1Image.Source = new BitmapImage(new Uri("", UriKind.Relative));;
+				this.actor1Item.Header = "演员1";
+				this.actor1_name.Text = "";
+				this.actor1_nameEn.Text = "";
+				this.actor1_gender.Text = "";
+				this.actor1_bornPlace.Text = "";
+				this.actor2Image.Source = new BitmapImage(new Uri("", UriKind.Relative));
+				this.actor2Item.Header = "演员2";
+				this.actor2_name.Text = "";
+				this.actor2_nameEn.Text = "";
+				this.actor2_gender.Text = "";
+				this.actor2_bornPlace.Text = "";
+				this.actor3Image.Source = new BitmapImage(new Uri("", UriKind.Relative));
+				this.actor3Item.Header = "演员3";
+				this.actor3_name.Text = "";
+				this.actor3_nameEn.Text = "";
+				this.actor3_gender.Text = "";
+				this.actor3_bornPlace.Text = "";
+				this.actor4Image.Source = new BitmapImage(new Uri("", UriKind.Relative));
+				this.actor4Item.Header = "演员4";
+				this.actor4_name.Text = "";
+				this.actor4_nameEn.Text = "";
+				this.actor4_gender.Text = "";
+				this.actor4_bornPlace.Text = "";
 			}
 		}
 
@@ -494,6 +560,7 @@ namespace Fish.MovieManager.UI
 		//cal md5
 		private void md5_Click(object sender, RoutedEventArgs e)
 		{
+			LockFun();
 			MessageBoxResult confirmToCal = MessageBox.Show("计算电影md5值需要一定时间，是否确认进行计算？", "提示", MessageBoxButton.YesNo);
 			if (confirmToCal == MessageBoxResult.Yes)
 			{
@@ -505,6 +572,7 @@ namespace Fish.MovieManager.UI
 					this.text_md5.Text = md5tmp;
 				}
 			}
+			UnLockFun();
 		}
 
 		//About us
@@ -523,7 +591,7 @@ namespace Fish.MovieManager.UI
 		//loading text
 		public void LoadText()
 		{
-			string textFile = "LICENSE.txt";
+			string textFile = @"LICENSE.txt";
 			FileStream fs;
 			if (File.Exists(textFile))
 			{

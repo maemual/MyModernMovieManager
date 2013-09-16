@@ -13,8 +13,8 @@ namespace Fish.MovieManager.Test
     {
         static void Main(string[] args)
         {
-            var tmp = Fish.MovieManager.DoubanControl.Class1.Instance.GetDirectorInfo(1012521);
-            Console.WriteLine(tmp.name);
+            //Fish.MovieManager.VideoControl.Class1.Instance.ImportFile("D:\\Videos\\穆赫兰道.mkv");
+            //Fish.MovieManager.VideoControl.Class1.Instance.RefreshInfo(673);
             //var tmp = Fish.MovieManager.TagControl.Class1.Instance.GetMovieByTag("剧情");
             //foreach (var item in tmp)
             //{

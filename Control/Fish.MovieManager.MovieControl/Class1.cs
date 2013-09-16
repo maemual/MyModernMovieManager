@@ -148,6 +148,10 @@ namespace Fish.MovieManager.VideoControl
             }
         }
 
+        /// <summary>
+        /// 刷新豆瓣信息
+        /// </summary>
+        /// <param name="id">豆瓣ID</param>
         public void RefreshInfo(int id)
         {
             //if (id != 0) return;
